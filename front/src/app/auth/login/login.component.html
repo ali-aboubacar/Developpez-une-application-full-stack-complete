@@ -1,0 +1,13 @@
+<app-header></app-header>
+<form class="form-wrap" [formGroup]="loginFormGoup" (ngSubmit)="onSubmit()">
+    <input type="email" id="floatingInput" placeholder="name@example.com" formControlName="email">
+    <div *ngIf="loginFormGoupControls.email.invalid && loginFormGoupControls.email.errors">
+        <div *ngIf="loginFormGoupControls.email.errors.required && (loginFormGoupControls.email.dirty || loginFormGoupControls.email.touched)" class="error-color">ce champ est obligatoire</div>
+        <div *ngIf="loginFormGoupControls.email.errors.email" class="error-color">ce champ doit contenir un email</div>
+    </div>
+    <input type="text" id="floatingPassword" placeholder="Password" formControlName="password">
+    <div *ngIf="loginFormGoupControls.password.invalid && loginFormGoupControls.password.errors">
+        <div *ngIf="loginFormGoupControls.password.errors.required && (loginFormGoupControls.password.dirty || loginFormGoupControls.password.touched)" class="error-color">ce champ est obligatoire</div>
+    </div>
+    <button>connexion</button>
+</form>

@@ -5,3 +5,12 @@
   align-items: center;
   flex-direction: column;
 }
+.bord{
+  border: 2px solid;
+  border-radius: 15px;
+}
+.buttons-space{
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
