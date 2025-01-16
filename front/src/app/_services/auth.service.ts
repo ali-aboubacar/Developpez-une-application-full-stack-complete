@@ -15,11 +15,11 @@ import { HttpClient } from '@angular/common/http';
   
     constructor(private http: HttpClient) { }
   
-    login(credentials:ICredential): Observable<IToken>{
-      return this.http.post<IToken>(this.url+'/login', credentials)
+    login(credentials:ICredential): Observable<any>{
+      return this.http.post<any>(this.url+'/login', credentials)
     }
   
-    signUp(formGroup:IUserCredential): Observable<IToken>{
-      return this.http.post<IToken>(this.url+'/signup', formGroup)
+    signUp(formGroup:any): Observable<any>{
+      return this.http.post<any>(this.url+'/signup', formGroup)
     }
   }

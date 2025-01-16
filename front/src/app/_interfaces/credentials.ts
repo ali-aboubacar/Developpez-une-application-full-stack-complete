@@ -8,7 +8,6 @@ export interface ICredential {
 
 export interface IUserCredential{
     nom: string,
-    prenom: string,
     email: string,
     password: string,
     role: RoleEnum

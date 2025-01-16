@@ -1,1 +1,2 @@
 /.idea/
+.env git rm --cached .env

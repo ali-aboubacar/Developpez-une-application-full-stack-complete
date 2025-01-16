@@ -1,0 +1,15 @@
+<form class="form-wrap" [formGroup]="createFormGroup" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="title">
+    <div *ngIf="createFormGroupControls.title.invalid && createFormGroupControls.title.errors">
+        <div *ngIf="createFormGroupControls.title.errors.required && (createFormGroupControls.title.dirty || createFormGroupControls.title.touched)" class="error-color">ce champ est obligatoire</div>
+    </div>
+    <input type="text" formControlName="theme">
+    <div *ngIf="createFormGroupControls.theme.invalid && createFormGroupControls.theme.errors">
+        <div *ngIf="createFormGroupControls.theme.errors.required && (createFormGroupControls.theme.dirty || createFormGroupControls.theme.touched)" class="error-color">ce champ est obligatoire</div>
+    </div>
+    <input type="text" formControlName="description">
+    <div *ngIf="createFormGroupControls.description.invalid && createFormGroupControls.description.errors">
+        <div *ngIf="createFormGroupControls.description.errors.required && (createFormGroupControls.description.dirty || createFormGroupControls.description.touched)" class="error-color">ce champ est obligatoire</div>
+    </div>
+    <button>enregistrer</button>
+</form>

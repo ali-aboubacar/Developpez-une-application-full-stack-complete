@@ -1,15 +1,16 @@
 <app-header></app-header>
 <form class="form-wrap" [formGroup]="signUpFormGroup" (ngSubmit)="onSubmit()">
+
+    <input type="email" id="floatingInput" placeholder="name@example.com" formControlName="email">
+    <div *ngIf="signUpFormGroupControls.email.invalid && signUpFormGroupControls.email.errors">
+        <div *ngIf="signUpFormGroupControls.email.errors.required && (signUpFormGroupControls.email.dirty || signUpFormGroupControls.email.touched)" class="error-color">ce champ est obligatoire</div>
+        <div *ngIf="signUpFormGroupControls.email.errors.email" class="error-color">ce champ doit contenir un email</div>
+    </div>
     <input type="text" id="nameInput" placeholder="Nom" formControlName="name">
     <label class="label-custom-bg" for="nameInput">Last Name</label>
     <div *ngIf="signUpFormGroupControls.name.invalid && signUpFormGroupControls.name.errors">
       <div *ngIf="signUpFormGroupControls.name.errors.required && (signUpFormGroupControls.name.dirty || signUpFormGroupControls.name.touched)" class="error-color">ce champ est obligatoire</div>
       <div *ngIf="signUpFormGroupControls.name.errors.nameValidator && (signUpFormGroupControls.name.dirty || signUpFormGroupControls.name.touched)" class="error-color">ce champ ne doit pas contenir de caractere speciaux</div>
-    </div>
-    <input type="email" id="floatingInput" placeholder="name@example.com" formControlName="email">
-    <div *ngIf="signUpFormGroupControls.email.invalid && signUpFormGroupControls.email.errors">
-        <div *ngIf="signUpFormGroupControls.email.errors.required && (signUpFormGroupControls.email.dirty || signUpFormGroupControls.email.touched)" class="error-color">ce champ est obligatoire</div>
-        <div *ngIf="signUpFormGroupControls.email.errors.email" class="error-color">ce champ doit contenir un email</div>
     </div>
     <input type="text" id="floatingPassword" placeholder="Password" formControlName="password">
     <div *ngIf="signUpFormGroupControls.password.invalid && signUpFormGroupControls.password.errors">

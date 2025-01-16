@@ -8,9 +8,8 @@ import { RoleEnum } from "../_enums/roles.enum";
     constructor() { 
     }
     
-    saveToken(token: string, isLoggedIn: boolean) {
+    saveToken(token: string) {
       localStorage.setItem('token',token);
-      localStorage.setItem('isLoggedIn',JSON.stringify(isLoggedIn))
     }
   
     saveRole(role: RoleEnum){

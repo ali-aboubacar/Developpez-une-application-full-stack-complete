@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
+import { tokenInterceptorProvider } from './_helpers/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     
   ],
-  providers: [],
+  providers: [tokenInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

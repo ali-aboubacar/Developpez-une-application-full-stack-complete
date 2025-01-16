@@ -36,17 +36,18 @@ import { TokenService } from "src/app/_services/token.service";
       console.log('register formGroup', this.signUpFormGroup.value)
       this.authService.signUp(this.signUpFormGroup.value).subscribe({
         next: (res) => {
-          this.tokenService.saveToken(res.token, res.loggedIn);
-          this.tokenService.saveRole(res.role);
-          this.tokenService.saveUserId(res.userId);
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigateByUrl(returnUrl).then(() => {
-            console.log(res)
-            // this.toastService.showToast(res.message,'success');
-            setTimeout(() => {
-              window.location.reload();
-            }, 3000)
-          });
+          console.log(res)
+          this.tokenService.saveToken(res.token);
+          // this.tokenService.saveRole(res.role);
+          // this.tokenService.saveUserId(res.userId);
+          // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          // this.router.navigateByUrl(returnUrl).then(() => {
+          //   console.log(res)
+          //   // this.toastService.showToast(res.message,'success');
+          //   setTimeout(() => {
+          //     window.location.reload();
+          //   }, 3000)
+          // });
         },
         error: (err) => {
           console.log(err)

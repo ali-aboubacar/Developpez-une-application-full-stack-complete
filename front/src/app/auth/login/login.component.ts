@@ -35,22 +35,23 @@ import { TokenService } from "src/app/_services/token.service";
 
     onSubmit(){
       console.log(this.loginFormGoup.value)
-      // this.authService.login(this.loginFormGoup.value).subscribe({
-      //   next: (res) => {
-      //     this.tokenService.saveToken(res.token, res.loggedIn);
-      //     this.tokenService.saveRole(res.role);
-      //     this.tokenService.saveUserId(res.userId);
-      //     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-      //     this.router.navigateByUrl(returnUrl).then(() => {
-      //       console.log(res);
-      //       setTimeout(() => {
-      //         window.location.reload();
-      //       }, 3000)
-      //     });
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //   }
-      // })
+      this.authService.login(this.loginFormGoup.value).subscribe({
+        next: (res) => {
+          console.log(res)
+          this.tokenService.saveToken(res.token);
+          // this.tokenService.saveRole(res.role);
+          // this.tokenService.saveUserId(res.userId);
+          // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          // this.router.navigateByUrl(returnUrl).then(() => {
+          //   console.log(res);
+          //   setTimeout(() => {
+          //     window.location.reload();
+          //   }, 3000)
+          // });
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
     }
   }
