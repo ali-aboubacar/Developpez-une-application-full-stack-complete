@@ -19,7 +19,7 @@ import { ReactiveFormsModule } from "@angular/forms";
         ArticleRoutingModule,
         CommonModule,
         CoreModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ]
 })
 export class ArticleModule {}

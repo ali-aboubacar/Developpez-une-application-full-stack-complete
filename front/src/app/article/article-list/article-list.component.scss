@@ -1,0 +1,20 @@
+.card-list-wrap{
+    display: flex;
+    justify-content: space-around;
+}
+.mat-card-header-text{
+    margin: 0 0 !important;
+}
+.custom-mat-card{
+    width: 45%;
+}
+
+.custom-mat-header{
+    flex-direction: column;
+}
+
+.subtitle-wrap{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

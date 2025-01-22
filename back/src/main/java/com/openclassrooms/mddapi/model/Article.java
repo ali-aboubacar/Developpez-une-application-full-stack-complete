@@ -24,7 +24,7 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comment = new HashSet<>();
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -66,6 +66,10 @@ public class Article {
         return owner;
     }
 
+    public Set<Comment> getComment() {
+        return comment;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -88,5 +92,9 @@ public class Article {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public void setComment(Set<Comment> comment) {
+        this.comment = comment;
     }
 }

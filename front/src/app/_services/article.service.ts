@@ -24,12 +24,12 @@ export class ArticleService{
     return this.http.post<IMessage>(`${this.url}/article/${productId}/comments`,{comment: comment})
   }
 
-  getAllProducts(page: number, pageSize: number):Observable<IAllArticles>{
-    return this.http.get<IAllArticles>(`${this.url}/article?page=${page}&pageSize=${pageSize}`)
+  getAllArticle():Observable<any>{
+    return this.http.get<any>(`${this.url}/article`)
   }
 
-  getOneProduct(productId: number): Observable<ISingleArticle>{
-    return this.http.get<ISingleArticle>(`${this.url}/article/${productId}`)
+  getOneArticle(articleId: number): Observable<any>{
+    return this.http.get<any>(`${this.url}/article/${articleId}`)
   }
 
   // updateProduct(productId: number, formGroup:any): Observable<IMessage>{

@@ -5,6 +5,9 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -13,12 +16,23 @@ import {MatIconModule} from '@angular/material/icon';
     imports: [
         RouterModule,
         CommonModule,
+        MatCardModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
         MatButtonModule,
-        MatIconModule
+
     ],
     exports: [
         HeaderComponent,
         PageNotFoundComponent,
+        MatCardModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
 
     ]
 })

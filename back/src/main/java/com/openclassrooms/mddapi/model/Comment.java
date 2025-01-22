@@ -28,4 +28,36 @@ public class Comment {
         this.article = article;
 
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

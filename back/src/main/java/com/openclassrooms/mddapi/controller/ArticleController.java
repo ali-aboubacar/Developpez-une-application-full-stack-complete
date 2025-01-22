@@ -24,13 +24,13 @@ public class ArticleController {
     public ResponseEntity<?> createOneArticle(@RequestParam("title") String title, @RequestParam("description") String description ){
         try {
             articleService.createRental(title, description);
-            return new ResponseEntity<MessageResponse>(new MessageResponse("Rental created !"), HttpStatus.CREATED);
+            return new ResponseEntity<MessageResponse>(new MessageResponse("Article created !"), HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping("/article/{id}")
-    public ResponseEntity<?> getOneArticle(@PathVariable("id") long id){
+    public ResponseEntity<ArticleDto> getOneArticle(@PathVariable("id") long id){
         try {
             Optional<ArticleDto> article = articleService.getRentalById(id);
             return article.map(value -> new ResponseEntity(value, HttpStatus.OK))

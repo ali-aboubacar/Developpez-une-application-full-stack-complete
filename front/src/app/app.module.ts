@@ -18,6 +18,7 @@ import { tokenInterceptorProvider } from './_helpers/token.interceptor';
     MatButtonModule,
     CoreModule,
     HttpClientModule,
+
     
   ],
   providers: [tokenInterceptorProvider],

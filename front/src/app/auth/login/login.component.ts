@@ -12,6 +12,8 @@ import { TokenService } from "src/app/_services/token.service";
   export class LoginComponent implements OnInit {
     private loginFormGoupField!: FormGroup;
 
+    private showPasswordField: boolean = true;
+
     constructor(private authService: AuthService,
       private tokenService: TokenService,
       private router: Router,
@@ -19,6 +21,10 @@ import { TokenService } from "src/app/_services/token.service";
 
     public get loginFormGoup() {
       return this.loginFormGoupField;
+    }
+
+    public get showPassword() {
+      return this.showPasswordField
     }
   
     public get loginFormGoupControls(): any{
@@ -31,6 +37,10 @@ import { TokenService } from "src/app/_services/token.service";
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required])
       })
+    }
+
+    togglePasswordVisibility(): void {
+      this.showPasswordField = !this.showPasswordField; // Toggle password visibility
     }
 
     onSubmit(){

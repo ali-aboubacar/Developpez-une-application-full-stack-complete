@@ -1,6 +1,9 @@
 package com.openclassrooms.mddapi.dtos;
 
+import com.openclassrooms.mddapi.model.Comment;
+
 import java.util.List;
+import java.util.Set;
 
 public class ArticleDto {
     private long id;
@@ -8,7 +11,11 @@ public class ArticleDto {
     private String description;
     private String created_at;
     private String updated_at;
+
+    private List<CommentDto> comments;
     private long owner_id;
+
+    private String userName;
 
     public long getId() {
         return id;
@@ -24,6 +31,14 @@ public class ArticleDto {
 
     public long getOwner_id() {
         return owner_id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public List<CommentDto> getComments() {
+        return comments;
     }
 
     public String getCreated_at() {
@@ -48,6 +63,14 @@ public class ArticleDto {
 
     public void setOwner_id(long owner_id) {
         this.owner_id = owner_id;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setComments(List<CommentDto> comments) {
+        this.comments = comments;
     }
 
     public void setCreated_at(String created_at) {

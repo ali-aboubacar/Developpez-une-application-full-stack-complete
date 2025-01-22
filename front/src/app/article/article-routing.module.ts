@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { ArticleLayoutComponent } from "./article-layout/article-layout.component";
 import { ArticleListComponent } from "./article-list/article-list.component";
 import { ArticleCreateComponent } from "./article-create/article-create.component";
+import { ArticleSingleDisplayComponent } from "./article-single-dsplay/article-single-display.component";
 
 const routes: Routes = [
     {
@@ -10,6 +11,8 @@ const routes: Routes = [
             { path:'', redirectTo: 'home', pathMatch: 'full' },
             { path:'home', component: ArticleListComponent},
             { path: 'create', component: ArticleCreateComponent},
+            { path: ':id', component: ArticleSingleDisplayComponent},
+
         ]
     }
 ]

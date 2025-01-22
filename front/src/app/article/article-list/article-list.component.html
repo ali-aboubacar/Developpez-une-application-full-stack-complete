@@ -1,1 +1,14 @@
-<p>app-article-list</p>
+<div class="card-list-wrap">
+    <mat-card class="custom-mat-card" *ngFor="let article of allArticle" [routerLink]="['/article',article.id]">
+        <mat-card-header class="custom-mat-header">
+          <mat-card-title>{{article.title}}</mat-card-title>
+          <div class="subtitle-wrap">
+            <mat-card-subtitle>Date {{article.created_at | date}}</mat-card-subtitle>
+            <mat-card-subtitle>Auteur {{article.owner_id }}</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{article.description}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

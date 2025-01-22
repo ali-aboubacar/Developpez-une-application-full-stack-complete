@@ -1,11 +1,16 @@
 package com.openclassrooms.mddapi.mapper;
 
 import com.openclassrooms.mddapi.dtos.ArticleDto;
+import com.openclassrooms.mddapi.dtos.CommentDto;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class ArticleMapper {
@@ -25,7 +30,7 @@ public class ArticleMapper {
         articleDto.setCreated_at(article.getCreatedAt());
         articleDto.setUpdated_at(article.getUpdatedAt());
         articleDto.setOwner_id(article.getOwner().getId());
-
+        articleDto.setUserName(article.getOwner().getName());
         return articleDto;
     }
 
@@ -44,7 +49,6 @@ public class ArticleMapper {
         article.setCreatedAt(articleDto.getCreated_at());
         article.setUpdatedAt(articleDto.getUpdated_at());
         article.setOwner(owner);
-
         return article;
     }
 }
