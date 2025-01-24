@@ -33,7 +33,7 @@ export class ArticleCreateComponent {
   
     onSubmit() {
         console.log(this.createFormGroup)
-      this.articleService.create(this.createFormGroup.get('title')?.value, this.createFormGroup.get('theme')?.value, this.createFormGroup.get('description')?.value).subscribe({
+      this.articleService.create(this.createFormGroup.get('title')?.value, this.createFormGroup.get('description')?.value, this.createFormGroup.get('theme')?.value,).subscribe({
         next: (res: any) => {
             console.log(res)
         },

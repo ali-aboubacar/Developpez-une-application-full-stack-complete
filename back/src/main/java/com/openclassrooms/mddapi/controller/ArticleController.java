@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.payload.response.ArticleResponse;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.service.ArticleService;
+import com.openclassrooms.mddapi.service.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,14 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
+    @Autowired
+    ThemeService themeService;
     @PostMapping("/article")
-    public ResponseEntity<?> createOneArticle(@RequestParam("title") String title, @RequestParam("description") String description ){
+    public ResponseEntity<?> createOneArticle(@RequestParam("title") String title, @RequestParam("theme") String theme, @RequestParam("description") String description){
         try {
-            articleService.createRental(title, description);
+            Article newArticle = new Article();
+            newArticle.setTheme(themeService.giveArticleTheme(theme));
+            articleService.createRental(newArticle, title, description);
             return new ResponseEntity<MessageResponse>(new MessageResponse("Article created !"), HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

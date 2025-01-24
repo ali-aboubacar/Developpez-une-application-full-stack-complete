@@ -7,13 +7,15 @@ import { CoreModule } from "../core/core.module";
 import { CommonModule } from "@angular/common";
 import { ArticleRoutingModule } from "./article-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
+import { ThemeListComponent } from "./theme-list/theme-list.component";
 
 @NgModule({
     declarations: [
         ArticleCreateComponent,
         ArticleLayoutComponent,
         ArticleListComponent,
-        ArticleSingleDisplayComponent
+        ArticleSingleDisplayComponent,
+        ThemeListComponent
     ],
     imports: [
         ArticleRoutingModule,

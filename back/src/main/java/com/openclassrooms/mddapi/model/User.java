@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,16 +38,20 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//    @OneToMany(mappedBy = "owner")
-//    private Set<Rental> rentals = new HashSet<>();
-//    @OneToMany(mappedBy = "id")
-//    private Set<Message> messages = new HashSet<>();
+    @OneToMany(mappedBy = "owner")
+    private Set<Article> articles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(  name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany(mappedBy = "users")
+    private List<Theme> themes = new ArrayList<>();
     public User() {
 
     }
@@ -86,21 +92,30 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-//    public Set<Rental> getRentals() {
-//        return rentals;
-//    }
-//
-//    public void setRentals(Set<Rental> rentals) {
-//        this.rentals = rentals;
-//    }
-//
-//    public Set<Message> getMessages() {
-//        return messages;
-//    }
-//
-//    public void setMessages(Set<Message> messages) {
-//        this.messages = messages;
-//    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public List<Theme> getThemes() {
+        return themes;
+    }
+
+    public void setThemes(List<Theme> themes) {
+        this.themes = themes;
+    }
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }

@@ -57,16 +57,16 @@ public class ArticleService {
      * @param description description saisie par l'utilisateur
      * @return un article
      */
-    public ArticleDto createRental(String title, String description) {
+    public ArticleDto createRental(Article newArticle, String title, String description) {
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             Long userId = userDetails.getId();
             User owner = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-            Article savedRental = articleRepository.save(new Article(
-                    title,
-                    description,
-                    owner));
+            newArticle.setTitle(title);
+            newArticle.setOwner(owner);
+            newArticle.setDescription(description);
+            Article savedRental = articleRepository.save(newArticle);
             return articleMapper.toArticleDto(savedRental);
         } catch (Exception e){
             throw new RuntimeException(e.getMessage());

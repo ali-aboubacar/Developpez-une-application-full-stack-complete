@@ -1,0 +1,6 @@
+<p>theme-list component</p>
+<mat-card appearance="outlined" *ngFor="let theme of themes">
+    <mat-card-content>{{theme.name}}</mat-card-content>
+    <button (click)="subscribe(theme.id)">Subscribe</button>
+    <button (click)="unSubscribe(theme.id)">Unsubscribe</button>
+</mat-card>

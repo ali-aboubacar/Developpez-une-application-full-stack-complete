@@ -4,6 +4,7 @@ import { ArticleLayoutComponent } from "./article-layout/article-layout.componen
 import { ArticleListComponent } from "./article-list/article-list.component";
 import { ArticleCreateComponent } from "./article-create/article-create.component";
 import { ArticleSingleDisplayComponent } from "./article-single-dsplay/article-single-display.component";
+import { ThemeListComponent } from "./theme-list/theme-list.component";
 
 const routes: Routes = [
     {
@@ -11,7 +12,9 @@ const routes: Routes = [
             { path:'', redirectTo: 'home', pathMatch: 'full' },
             { path:'home', component: ArticleListComponent},
             { path: 'create', component: ArticleCreateComponent},
+            { path: 'themes', component: ThemeListComponent},
             { path: ':id', component: ArticleSingleDisplayComponent},
+
 
         ]
     }

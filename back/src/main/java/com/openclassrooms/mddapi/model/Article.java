@@ -24,7 +24,12 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @ManyToOne
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comment = new HashSet<>();
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -96,5 +101,13 @@ public class Article {
 
     public void setComment(Set<Comment> comment) {
         this.comment = comment;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 }

@@ -1,8 +1,13 @@
 package com.openclassrooms.mddapi.service;
 
+import com.openclassrooms.mddapi.model.ETheme;
+import com.openclassrooms.mddapi.model.Theme;
 import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.repository.ThemeRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,6 +17,8 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ThemeRepository themeRepository;
     /**
      * Verifie l'existance du nom dans le system.
      * @param name le nom a verifier.
@@ -45,5 +52,37 @@ public class UserService {
      */
     public Optional<User> getUserById(long id) {
         return userRepository.findById(id);
+    }
+
+    public void subscribeToTheme(long themeId){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getId();
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Theme themeToSubscribe = themeRepository.findById(themeId).orElseThrow(() -> new RuntimeException("Theme not found"));
+
+        user.getThemes().add(themeToSubscribe);
+        themeToSubscribe.getUsers().add(user);
+
+        themeRepository.save(themeToSubscribe);
+        userRepository.save(user);
+    }
+
+    public void unSubscribeToTheme(long themeId){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getId();
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Theme themeToUnSubscribe = themeRepository.findById(themeId).orElseThrow(() -> new RuntimeException("Theme not found"));
+
+        user.getThemes().remove(themeToUnSubscribe);
+        themeToUnSubscribe.getUsers().remove(user);
+
+        themeRepository.save(themeToUnSubscribe);
+        userRepository.save(user);
     }
 }
