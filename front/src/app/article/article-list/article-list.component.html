@@ -1,14 +1,17 @@
+<div class="banner-custom">
+  <button mat-raised-button class="custom-button">Créer un article</button>
+  <div class="filter-wrap">
+    <h4>Trier par</h4>
+    <i class="fa-solid fa-arrow-down"></i>
+    </div>
+</div>
 <div class="card-list-wrap">
-    <mat-card class="custom-mat-card" *ngFor="let article of allArticle" [routerLink]="['/article',article.id]">
-        <mat-card-header class="custom-mat-header">
-          <mat-card-title>{{article.title}}</mat-card-title>
-          <div class="subtitle-wrap">
-            <mat-card-subtitle>Date {{article.created_at | date}}</mat-card-subtitle>
-            <mat-card-subtitle>Auteur {{article.owner_id }}</mat-card-subtitle>
-          </div>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{article.description}}</p>
-        </mat-card-content>
-    </mat-card>
+  <div class="grey-color custom-card" *ngFor="let article of allArticle" [routerLink]="['/article',article.id]">
+    <h2>{{article.title}}</h2>
+    <div class="card-subtitle">
+      <h5>Date : {{article.created_at | date}}</h5>
+      <h5>Auteur : {{article.userName }}</h5>
+    </div>
+    <p>{{article.description}}</p>
+  </div>
 </div>

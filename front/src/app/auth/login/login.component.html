@@ -1,5 +1,5 @@
 <app-header></app-header>
-<form class="form-wrap" [formGroup]="loginFormGoup">
+<form class="form-wrap" [formGroup]="loginFormGoup" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput placeholder="example@email.com" formControlName="email">
@@ -12,6 +12,7 @@
         <mat-label>Password</mat-label>
         <input matInput [type] ="showPassword ? 'password' : 'text'" placeholder="password" formControlName="password">
         <button
+        type="button"
         mat-icon-button
         matSuffix
         (click)="togglePasswordVisibility()"
@@ -24,5 +25,5 @@
             <mat-error *ngIf="loginFormGoupControls.password.errors.required && (loginFormGoupControls.password.dirty || loginFormGoupControls.password.touched)" >ce champ est obligatoire</mat-error>
         </mat-error>
       </mat-form-field>
-    <button mat-raised-button class="custom-button" type="submit" (click)="onSubmit()">connexion</button>
+    <button mat-raised-button class="custom-button" type="submit">Connexion</button>
 </form>

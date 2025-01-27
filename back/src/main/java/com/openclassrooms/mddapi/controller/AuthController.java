@@ -50,19 +50,6 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping("/me")
-    public ResponseEntity<UserDto> getLoginUser(){
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-            Long userId = userDetails.getId();
-            Optional<User> user = userService.getUserById(userId);
-            return user.map(value -> new ResponseEntity(userMapper.toUserDto(value), HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
-        }catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 

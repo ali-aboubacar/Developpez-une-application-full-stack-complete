@@ -15,7 +15,33 @@ img{
     color: #FF4F4B;
 }
 .custom-button{
-    background-color: purple;
+    background-color: #7763C5;
     color: white;
     border-radius: 10px !important;
+}
+.grey-color{
+    background-color: #F5F5F5;
+}
+
+.card-list-wrap{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.custom-card{
+    width: 40%;
+    padding: 2%;
+    border-radius: 15px;
+    margin-top: 3%;
+}
+
+@media all and (max-width: 425px){
+    .card-list-wrap{
+        flex-direction: column;
+        align-items: center;
+    }
+    .custom-card{
+        width: 90%;
+    }
 }

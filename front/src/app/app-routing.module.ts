@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './core/components/page-not-found/page-not
 // to manage unauthenticated user to access private routes
 const routes: Routes = [{ path: '', component: HomeComponent },
   {path: 'article', loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)},
+  {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   {path: '**', component: PageNotFoundComponent}
 ];

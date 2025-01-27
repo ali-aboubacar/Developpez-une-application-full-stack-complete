@@ -1,0 +1,20 @@
+<div class="user-details">
+    <h2>Profil Utilisateur</h2>
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="{{currentUser.name}}">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="{{currentUser.email}}">
+    </mat-form-field>
+    <button  mat-raised-button class="custom-button">sauvegarder</button>
+    <a mat-button href="https://www.google.com/" target="_blank">se deconnecter</a>
+</div>
+<mat-divider></mat-divider>
+<div class="theme-display">
+    <mat-card class="card-theme" appearance="outlined" *ngFor="let themes of currentUser.themes">
+        <mat-card-title>{{themes.name}}</mat-card-title>
+        <mat-card-content>{{themes.description}}</mat-card-content>
+        <button class="custom-button" mat-stroked-button>Basic</button>
+    </mat-card>
+</div>
+  

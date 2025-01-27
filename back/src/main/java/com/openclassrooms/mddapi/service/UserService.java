@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
+import com.openclassrooms.mddapi.dtos.UserDto;
+import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.model.ETheme;
 import com.openclassrooms.mddapi.model.Theme;
 import com.openclassrooms.mddapi.model.User;
@@ -19,6 +21,9 @@ public class UserService {
 
     @Autowired
     ThemeRepository themeRepository;
+
+    @Autowired
+    UserMapper userMapper;
     /**
      * Verifie l'existance du nom dans le system.
      * @param name le nom a verifier.
@@ -84,5 +89,14 @@ public class UserService {
 
         themeRepository.save(themeToUnSubscribe);
         userRepository.save(user);
+    }
+
+    public UserDto getCurrentUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getId();
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return userMapper.toUserDto(user);
     }
 }

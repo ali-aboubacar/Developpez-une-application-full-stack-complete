@@ -8,6 +8,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
+import {MatDividerModule} from '@angular/material/divider';
+
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -22,6 +24,8 @@ import { MatInputModule } from "@angular/material/input";
         MatIconModule,
         MatInputModule,
         MatButtonModule,
+        MatDividerModule,
+        
 
     ],
     exports: [
@@ -33,6 +37,7 @@ import { MatInputModule } from "@angular/material/input";
         MatIconModule,
         MatInputModule,
         MatButtonModule,
+        MatDividerModule
 
     ]
 })

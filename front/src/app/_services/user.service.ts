@@ -17,4 +17,8 @@ export class UserService{
     unSubscribe(themeId: number):Observable<IMessage>{
         return this.http.delete<IMessage>(`${this.url}/unsubscribe/${themeId}`)
     }
+
+    getCurrentUser(): Observable<any>{
+        return this.http.get<any>(`${this.url}/currentuser`)
+    }
 }

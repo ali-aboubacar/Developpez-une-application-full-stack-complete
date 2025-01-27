@@ -33,4 +33,14 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/currentuser")
+    public ResponseEntity<?> getCurrentUser(){
+        try{
+            userService.getCurrentUser();
+            return new ResponseEntity<>(userService.getCurrentUser(),HttpStatus.OK);
+        }catch (Exception e){
+            return  new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { ThemeEnum } from "src/app/_enums/themes.enum";
 import { ThemeService } from "src/app/_services/theme.service";
 import { UserService } from "src/app/_services/user.service";
@@ -10,14 +11,23 @@ import { UserService } from "src/app/_services/user.service";
 })
 export class ThemeListComponent implements OnInit{
     private themesField: any;
+    private currentUserField: any;
 
-    constructor(private themeService: ThemeService, private userService: UserService){}
+    constructor(private themeService: ThemeService,
+        private userService: UserService,
+        private route: ActivatedRoute
+    ){}
     public get themes(){
         return this.themesField;
     }
 
     ngOnInit(): void {
         this.loadAllTheme();
+        this.currentUserField = this.route.snapshot.data['response'];
+        console.log(this.currentUserField)
+    }
+    findSubscribed(themeId: number): boolean{
+       return this.currentUserField.themes.find((theme: any) => theme.id === themeId);
     }
 
     loadAllTheme(){
@@ -30,12 +40,18 @@ export class ThemeListComponent implements OnInit{
     subscribe(themeId: number){
         this.userService.subscribe(themeId).subscribe((data)=>{
             console.log(data);
+            this.userService.getCurrentUser().subscribe((data)=>{
+                this.currentUserField = data;
+            });
         })
     }
 
     unSubscribe(themeId: number){
         this.userService.unSubscribe(themeId).subscribe((data)=>{
             console.log(data);
+            this.userService.getCurrentUser().subscribe((data)=>{
+                this.currentUserField = data;
+            });
         })
     }
 }

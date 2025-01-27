@@ -1,6 +1,9 @@
 package com.openclassrooms.mddapi.dtos;
 
+import com.openclassrooms.mddapi.model.Theme;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UserDto {
     private long id;
@@ -9,7 +12,7 @@ public class UserDto {
 
     private String name;
 
-
+    private List<ThemeDto> themes;
     private LocalDateTime createdAt;
 
 
@@ -36,6 +39,14 @@ public class UserDto {
 
     public String getEmail(){
         return this.email;
+    }
+
+    public void setThemes(List<ThemeDto> themes) {
+        this.themes = themes;
+    }
+
+    public List<ThemeDto> getThemes() {
+        return themes;
     }
 
     public LocalDateTime getCreatedAt() {

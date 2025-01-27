@@ -16,5 +16,5 @@
     <div *ngIf="signUpFormGroupControls.password.invalid && signUpFormGroupControls.password.errors">
         <div *ngIf="signUpFormGroupControls.password.errors.required && (signUpFormGroupControls.password.dirty || signUpFormGroupControls.password.touched)" class="error-color">ce champ est obligatoire</div>
     </div>
-    <button>connexion</button>
+    <button  mat-raised-button class="custom-button">Inscription</button>
 </form>
