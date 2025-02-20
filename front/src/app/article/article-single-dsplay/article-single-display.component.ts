@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { IArticle } from "src/app/_interfaces/article";
+import { IComment } from "src/app/_interfaces/comment";
 import { ArticleService } from "src/app/_services/article.service";
 import { CommentService } from "src/app/_services/comment.service";
 
@@ -10,13 +12,36 @@ import { CommentService } from "src/app/_services/comment.service";
 })
 
 export class ArticleSingleDisplayComponent implements OnInit{
-    private articleId: any;
-    private commentField: any;
-    private singleArticleField: any;
+    private articleId!: string;
+    private commentField!: IComment[];
+    private singleArticleField!: IArticle;
+    private commentInputField: string = '';
+    private totalArticleFied: number = 0;
+    private pageField: number = 0;
+    private sizeField: number = 5;
     constructor(private route: ActivatedRoute,
         private articleService: ArticleService,
-        private commentService: CommentService
+        private commentService: CommentService,
+        private router: Router
     ){}
+
+    public get size(){
+        return this.sizeField;
+    }
+
+    public get page(){
+        return this.pageField;
+    }
+    public get totalArticle(){
+        return this.totalArticleFied;
+    }
+    public get commentInput(){
+        return this.commentInputField;
+    }
+
+    public set commentInput(commentInput: string){
+        this.commentInputField = commentInput
+    }
 
     public get comment(){
         return this.commentField;
@@ -25,31 +50,52 @@ export class ArticleSingleDisplayComponent implements OnInit{
     public get singleArticle(){
         return this.singleArticleField
     }
+    
     ngOnInit(): void {
         this.articleId = this.route.snapshot.params['id'];
         this.loadSingleProduct()
     }
 
     private loadSingleProduct(){
-        this.articleService.getOneArticle(this.articleId).subscribe((data) => {
-            console.log(data)
-            this.singleArticleField = data;
-        //   this.singleProductField = data.singleProduct;
-        //   this.commentsField = data.singleProduct.comments.map((comment:any) => ({...comment, showMore:false}));
-        //   this.likedCommentField = data.likedComment
-        });
-        this.commentService.getAllArticleComments(this.articleId).subscribe((data) => {
+        let isnum = /^\d+$/.test(this.articleId);
+        if(isnum) {
+            this.articleService.getOneArticle(this.articleId).subscribe((data) => {
+                console.log(data)
+                this.singleArticleField = data;
+            });
+            this.loadComments();
+        } else {
+            this.router.navigate(['article/home/**'])
+        }
+    }
+    loadComments(){
+        this.commentService.getAllArticleComments(this.articleId, this.page, this.size).subscribe((data) => {
             console.log('comments',data)
-            this.commentField = data;
+            this.commentField = data.content;
+            this.totalArticleFied = data.totalElements;
         });
     }
 
+    nextPage(): void{
+        if(this.pageField < this.totalArticleFied / this.sizeField - 1){
+            this.pageField++;
+            this.loadComments();
+        }
+    }
+
+    previousPage(): void{
+        if(this.pageField > 0){
+            this.pageField--;
+            this.loadComments();
+        }
+    }
+
     onSubmitComment(){
-        console.log("clicked");
-        this.commentService.create("this my new comment", this.articleId).subscribe((data)=>{
-            this.commentService.getAllArticleComments(this.articleId).subscribe((data) => {
+        this.commentService.create(this.commentInput, this.articleId).subscribe((data)=>{
+            this.commentService.getAllArticleComments(this.articleId, this.page, this.size).subscribe((data) => {
                 console.log('comments',data)
-                this.commentField = data;
+                this.commentField = data.content;
+                this.commentInputField = '';
             });
         });
     }

@@ -1,2 +1,4 @@
-package com.openclassrooms.mddapi.payload.response;public class SignUpResponse {
+package com.openclassrooms.mddapi.payload.response;
+
+public abstract class SignUpResponse {
 }

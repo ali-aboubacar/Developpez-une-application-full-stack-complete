@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dtos.ArticleDto;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
 import com.openclassrooms.mddapi.mapper.ArticleMapper;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.User;
@@ -62,13 +63,13 @@ public class ArticleService {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             Long userId = userDetails.getId();
-            User owner = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+            User owner = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found" + userId));
             newArticle.setTitle(title);
             newArticle.setOwner(owner);
             newArticle.setDescription(description);
             Article savedRental = articleRepository.save(newArticle);
             return articleMapper.toArticleDto(savedRental);
-        } catch (Exception e){
+        } catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }
     }

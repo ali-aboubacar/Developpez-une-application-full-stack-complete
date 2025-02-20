@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ThemeEnum } from "src/app/_enums/themes.enum";
+import { ITheme, IThemes } from "src/app/_interfaces/theme";
+import { IUser } from "src/app/_interfaces/user";
 import { ThemeService } from "src/app/_services/theme.service";
 import { UserService } from "src/app/_services/user.service";
 
@@ -10,8 +12,8 @@ import { UserService } from "src/app/_services/user.service";
     styleUrls: ['./theme-list.component.scss']
 })
 export class ThemeListComponent implements OnInit{
-    private themesField: any;
-    private currentUserField: any;
+    private themesField!: ITheme[];
+    private currentUserField!: IUser;
 
     constructor(private themeService: ThemeService,
         private userService: UserService,
@@ -21,13 +23,17 @@ export class ThemeListComponent implements OnInit{
         return this.themesField;
     }
 
+    public get currentUser(){
+        return this.currentUserField;
+    }
     ngOnInit(): void {
         this.loadAllTheme();
         this.currentUserField = this.route.snapshot.data['response'];
         console.log(this.currentUserField)
     }
+
     findSubscribed(themeId: number): boolean{
-       return this.currentUserField.themes.find((theme: any) => theme.id === themeId);
+       return !!this.currentUser.themes.find((theme: ITheme) => theme.id === themeId);
     }
 
     loadAllTheme(){

@@ -7,7 +7,7 @@ public class ThemeDto {
 
     private ETheme name;
 
-    private String description;
+        private String description;
 
     public void setId(long id) {
         this.id = id;

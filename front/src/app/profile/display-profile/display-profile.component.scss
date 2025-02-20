@@ -6,12 +6,36 @@
 .theme-display{
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 .card-theme{
     display: flex;
     flex-direction: column;
 
 }
-.unsubscribe-button{
-    
+.subscribe-wrap{
+    display: flex;
+    justify-content: center;
+}
+.custom-input{
+    height: 5vh;    
+    border-radius: 7px;
+    border: 0.2px solid;
+}
+.custom-pasword-wrap{
+    position: relative;
+}
+.custom-pasword-input{
+    width: 98%;
+    position: relative;
+    z-index: 0;
+}
+.custom-show-password{
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    right: 2%;
+}
+.extra-margin-top{
+    margin-top: 5%;
 }

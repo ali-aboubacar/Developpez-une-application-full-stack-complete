@@ -9,11 +9,13 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import {MatDividerModule} from '@angular/material/divider';
+import { HeaderAuthComponent } from "./components/header-auth/header-auth.component";
 
 @NgModule({
     declarations: [
         HeaderComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        HeaderAuthComponent
     ],
     imports: [
         RouterModule,
@@ -31,6 +33,7 @@ import {MatDividerModule} from '@angular/material/divider';
     exports: [
         HeaderComponent,
         PageNotFoundComponent,
+        HeaderAuthComponent,
         MatCardModule,
         MatIconModule,
         MatFormFieldModule,

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { nameValidator } from "src/app/_helpers/validators";
+import { nameValidator, StrongPasswordRegx } from "src/app/_helpers/validators";
 import { AuthService } from "src/app/_services/auth.service";
 import { TokenService } from "src/app/_services/token.service";
 
@@ -12,6 +12,7 @@ import { TokenService } from "src/app/_services/token.service";
   })
   export class SignupComponent {
     private signUpFormGroupField!: FormGroup;
+    private showPasswordField: boolean = true;
 
     constructor(private authService: AuthService,
       private tokenService: TokenService,
@@ -20,11 +21,11 @@ import { TokenService } from "src/app/_services/token.service";
       this.signUpFormGroupField = new FormGroup({
         name: new FormControl('', [Validators.required, nameValidator()]),
         email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.pattern(StrongPasswordRegx)]),
       })
     }
   
-    public get signUpFormGroupControls(): any{
+    public get signUpFormGroupControls(): {[key:string]: AbstractControl}{
       return this.signUpFormGroup['controls'];
     }
   
@@ -32,12 +33,22 @@ import { TokenService } from "src/app/_services/token.service";
       return this.signUpFormGroupField;
     }
   
+    public get showPassword() {
+      return this.showPasswordField
+    }
+
+    togglePasswordVisibility(): void {
+      this.showPasswordField = !this.showPasswordField;
+    }
+
     onSubmit(){
       console.log('register formGroup', this.signUpFormGroup.value)
       this.authService.signUp(this.signUpFormGroup.value).subscribe({
         next: (res) => {
           console.log(res)
           this.tokenService.saveToken(res.token);
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/article';
+          this.router.navigateByUrl(returnUrl)
           // this.tokenService.saveRole(res.role);
           // this.tokenService.saveUserId(res.userId);
           // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

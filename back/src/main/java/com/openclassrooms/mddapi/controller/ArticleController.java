@@ -1,11 +1,15 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dtos.ArticleDto;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
+import com.openclassrooms.mddapi.jwtUtils.JwtUtils;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.payload.response.ArticleResponse;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.service.ArticleService;
 import com.openclassrooms.mddapi.service.ThemeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,20 +22,23 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ArticleController {
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
     @Autowired
     ArticleService articleService;
 
     @Autowired
     ThemeService themeService;
     @PostMapping("/article")
-    public ResponseEntity<?> createOneArticle(@RequestParam("title") String title, @RequestParam("theme") String theme, @RequestParam("description") String description){
+    public ResponseEntity<MessageResponse> createOneArticle(@RequestParam("title") String title, @RequestParam("theme") String theme, @RequestParam("description") String description){
         try {
             Article newArticle = new Article();
             newArticle.setTheme(themeService.giveArticleTheme(theme));
             articleService.createRental(newArticle, title, description);
             return new ResponseEntity<MessageResponse>(new MessageResponse("Article created !"), HttpStatus.CREATED);
-        } catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (RuntimeException e){
+            logger.error("Error creating article", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
     @GetMapping("/article/{id}")
@@ -39,9 +46,10 @@ public class ArticleController {
         try {
             Optional<ArticleDto> article = articleService.getRentalById(id);
             return article.map(value -> new ResponseEntity(value, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+                    .orElseThrow(() -> new ResourceNotFoundException("Not foun article with id" + id));
+        } catch (RuntimeException e) {
+            logger.error("Error getting one srticle", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
     @GetMapping("/article")
@@ -49,10 +57,10 @@ public class ArticleController {
         try {
             List<ArticleDto> articlesList = new ArrayList<>();
             articlesList = articleService.getAllArticles();
-//            ArticleResponse articles = new ArticleResponse();
             return new ResponseEntity<>(articlesList, HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (RuntimeException e){
+            logger.error("Error getting all article", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

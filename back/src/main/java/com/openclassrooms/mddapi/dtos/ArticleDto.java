@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.dtos;
 
 import com.openclassrooms.mddapi.model.Comment;
+import com.openclassrooms.mddapi.model.ETheme;
 
 import java.util.List;
 import java.util.Set;
@@ -11,10 +12,9 @@ public class ArticleDto {
     private String description;
     private String created_at;
     private String updated_at;
-
-    private List<CommentDto> comments;
+    private ETheme theme;
+    private Set<CommentDto> comments;
     private long owner_id;
-
     private String userName;
 
     public long getId() {
@@ -37,7 +37,7 @@ public class ArticleDto {
         return userName;
     }
 
-    public List<CommentDto> getComments() {
+    public Set<CommentDto> getComments() {
         return comments;
     }
 
@@ -69,7 +69,15 @@ public class ArticleDto {
         this.userName = userName;
     }
 
-    public void setComments(List<CommentDto> comments) {
+    public void setTheme(ETheme theme) {
+        this.theme = theme;
+    }
+
+    public ETheme getTheme() {
+        return theme;
+    }
+
+    public void setComments(Set<CommentDto> comments) {
         this.comments = comments;
     }
 

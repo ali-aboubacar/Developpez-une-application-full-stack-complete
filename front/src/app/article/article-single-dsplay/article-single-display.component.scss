@@ -1,0 +1,68 @@
+.header-custom{
+    display: flex;
+    align-items: center;
+    margin-top: 2%;
+    justify-content: space-around;
+}
+h2{
+    margin: 0;
+}
+.content-wrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+
+}
+.description-wrap{
+    width: 85%;
+}
+.comments-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.comment-card{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2%;
+}
+.comment{
+    width: 65%;
+    border-radius: 15px;
+    padding: 2%;
+}
+
+.comment-input-wrap{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+.comment-input{
+    width: 90%;
+    height: 10vh;
+    border-radius: 15px;
+    border: 0.5px solid;
+}
+.article-info-wrap{
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon-color{
+    color: #7763C5;
+}
+
+.title-custom{
+    width: 92%;
+}
+.pagination-wrap{
+    margin-bottom: 3%;
+}
+.pagination-custom{
+    background-color: inherit;
+    border: none;
+}

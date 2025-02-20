@@ -1,18 +1,35 @@
-<h2>{{singleArticle.title}}</h2>
-<p>{{singleArticle.description}}</p>
-<mat-card appearance="outlined" *ngFor="let com of comment">
-    <mat-card-content>{{com.comment}}</mat-card-content>
-  </mat-card>
-<mat-form-field appearance="outline">
-    <mat-label>Comment</mat-label>
-    <input matInput type ="text" placeholder="Comment">
-    <button
-    mat-icon-button
-    matSuffix
-    (click)="onSubmitComment()"
-    [attr.aria-label]="'Send comment'"
-    [attr.aria-pressed]="onSubmitComment"
-  >
-  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-  </button>
-  </mat-form-field>
+<div class="header-custom" *ngIf="singleArticle">
+  <i class="fa-solid fa-arrow-left fa-2xl arrow-icon back-arrow" [routerLink]="['/article/home']"></i>
+  <h2 class="title-custom">{{singleArticle.title | titlecase}}</h2>
+</div>
+<div class="content-wrap" *ngIf="singleArticle">
+  <div class="description-wrap">
+    <div class="article-info-wrap">
+      <h4>Date: {{singleArticle.created_at | date}}</h4>
+      <h4>Auteur: {{singleArticle.userName | titlecase}}</h4>
+      <h4>Theme: {{singleArticle.theme | titlecase}}</h4>
+    </div>
+    <p>{{singleArticle.description}}</p>
+    <hr>
+    <div *ngIf="comment">   
+      <h4>commentaires</h4>
+      <div class="comments-wrap">
+        <div class="comment-card" *ngFor="let com of comment">
+          <h4>{{com.userName | titlecase}}</h4>
+          <div class="grey-color comment">
+            <p>{{com.comment}}</p>
+          </div>
+        </div>
+        <div class="pagination-wrap">
+          <button class="pagination-custom" (click)="previousPage()" [disabled]="page === 0"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="pagination-custom" >{{page + 1}}</button>
+          <button class="pagination-custom" (click)="nextPage()" [disabled]="page >= totalArticle / size - 1"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="comment-input-wrap">
+          <textarea class="comment-input" type="text" placeholder="Écrivez ici votre commentaire" [(ngModel)]="commentInput" (keydown.enter)="onSubmitComment()"></textarea>
+          <i class="fa-regular fa-paper-plane fa-2xl icon-color" (click)="onSubmitComment()"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

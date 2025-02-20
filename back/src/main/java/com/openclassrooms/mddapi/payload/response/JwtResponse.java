@@ -2,7 +2,7 @@ package com.openclassrooms.mddapi.payload.response;
 
 import java.util.List;
 
-public class JwtResponse {
+public class JwtResponse extends SignUpResponse{
     private String token;
     private String type = "Bearer";
     private Long id;

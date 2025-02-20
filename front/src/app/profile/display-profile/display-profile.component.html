@@ -1,20 +1,51 @@
-<div class="user-details">
+<div class="form-wrap">
     <h2>Profil Utilisateur</h2>
-    <mat-form-field appearance="outline">
-        <input matInput placeholder="{{currentUser.name}}">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <input matInput placeholder="{{currentUser.email}}">
-    </mat-form-field>
-    <button  mat-raised-button class="custom-button">sauvegarder</button>
-    <a mat-button href="https://www.google.com/" target="_blank">se deconnecter</a>
+    <form class="custom-form" [formGroup]="editFormGroup" (ngSubmit)="editProfile()">
+        <input class="custom-input extra-margin-top" type="text" id="nameInput" formControlName="userName">
+        <div *ngIf="editFormGroupControls['userName'].invalid && editFormGroupControls['userName'].errors">
+          <div *ngIf="editFormGroupControls['userName'].errors['required'] && (editFormGroupControls['userName'].dirty || editFormGroupControls['userName'].touched)" class="error-color">ce champ est obligatoire</div>
+          <div *ngIf="editFormGroupControls['userName'].errors['nameValidator'] && (editFormGroupControls['userName'].dirty || editFormGroupControls['userName'].touched)" class="error-color">ce champ ne doit pas contenir de caractere speciaux</div>
+        </div>
+        <input class="custom-input extra-margin-top" type="email" id="emailInput" formControlName="email">
+        <div *ngIf="editFormGroupControls['email'].invalid && editFormGroupControls['email'].errors">
+            <div *ngIf="editFormGroupControls['email'].errors['required'] && (editFormGroupControls['email'].dirty || editFormGroupControls['email'].touched)" class="error-color">ce champ est obligatoire</div>
+            <div *ngIf="editFormGroupControls['email'].errors['email']" class="error-color">ce champ doit contenir un email</div>
+        </div>
+        <input class="extra-margin-top" type="file" *ngIf="toggleEditPic" (change)="onFileSelect($event)">
+        <div class="custom-pasword-wrap extra-margin-top" *ngIf="toggleEditPic">
+          <input class="custom-input custom-pasword-input" placeholder="Mot de passe" [type] ="showPassword ? 'password' : 'text'" id="passwordInput" formControlName="password">
+          <i class="fa-regular fa-xl custom-show-password" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye purple-color'" (click)="togglePasswordVisibility()"></i>
+        </div>
+        <div *ngIf="editFormGroupControls['password'].invalid && editFormGroupControls['password'].errors">
+            <div *ngIf="editFormGroupControls['password'].errors['required'] && (editFormGroupControls['password'].dirty || editFormGroupControls['password'].touched)" class="error-color">ce champ est obligatoire</div>
+            <div *ngIf="editFormGroupControls['password'].errors['pattern'] && (editFormGroupControls['password'].dirty || editFormGroupControls['password'].touched)" class="error-color">ce champ doit contenir au moins une lettre Majiscule un charactere speciaux et un chiffre</div>
+        </div>  
+        <div class="custom-pasword-wrap extra-margin-top" *ngIf="toggleEditPic">
+            <input class="custom-input custom-pasword-input" placeholder="Nouveau mot de passe" [type] ="showNewPassword ? 'password' : 'text'" id="newPasswordInput" formControlName="newPassword">
+            <i class="fa-regular fa-xl custom-show-password" [ngClass]="showNewPassword ? 'fa-eye-slash' : 'fa-eye purple-color'" (click)="toggleNewPasswordVisibility()"></i>
+          </div>
+          <div *ngIf="editFormGroupControls['newPassword'].invalid && editFormGroupControls['newPassword'].errors">
+              <div *ngIf="editFormGroupControls['newPassword'].errors['required'] && (editFormGroupControls['newPassword'].dirty || editFormGroupControls['newPassword'].touched)" class="error-color">ce champ est obligatoire</div>
+              <div *ngIf="editFormGroupControls['newPassword'].errors['pattern'] && (editFormGroupControls['newPassword'].dirty || editFormGroupControls['newPassword'].touched)" class="error-color">ce champ doit contenir au moins une lettre Majiscule un charactere speciaux et un chiffre</div>
+          </div>  
+          <div class="custom-pasword-wrap extra-margin-top" *ngIf="toggleEditPic">
+            <input class="custom-input custom-pasword-input" placeholder="confirme mot de passe" [type] ="showConfPassword ? 'password' : 'text'" id="ConfirmePasswordInput" formControlName="confPassword">
+            <i class="fa-regular fa-xl custom-show-password" [ngClass]="showConfPassword ? 'fa-eye-slash' : 'fa-eye purple-color'" (click)="toggleConfPasswordVisibility()"></i>
+          </div>
+          <div *ngIf="editFormGroupControls['confPassword'].invalid && editFormGroupControls['confPassword'].errors">
+              <div *ngIf="editFormGroupControls['confPassword'].errors['mustMatch'] && (editFormGroupControls['confPassword'].dirty || editFormGroupControls['confPassword'].touched)" class="error-color" >les mots de passe ne sont pas identique</div>
+          </div>  
+        <button  mat-raised-button class="custom-button extra-margin-top" type="submit">sauvegarder</button>
+        <a mat-button (click)="logout()" target="_blank">se deconnecter</a>
+    </form>
 </div>
 <mat-divider></mat-divider>
 <div class="theme-display">
-    <mat-card class="card-theme" appearance="outlined" *ngFor="let themes of currentUser.themes">
-        <mat-card-title>{{themes.name}}</mat-card-title>
-        <mat-card-content>{{themes.description}}</mat-card-content>
-        <button class="custom-button" mat-stroked-button>Basic</button>
-    </mat-card>
+    <div class="grey-color custom-card" *ngFor="let theme of currentUser.themes">
+        <h2>{{theme.name | titlecase}}</h2>
+        <p>{{theme.description}}</p>
+        <div class="subscribe-wrap">
+            <button  mat-raised-button class="custom-button" (click)="unSubscribe(theme.id)">Se désabonner</button>
+        </div>
+    </div>
 </div>
-  

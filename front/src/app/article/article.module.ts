@@ -6,7 +6,7 @@ import { ArticleSingleDisplayComponent } from "./article-single-dsplay/article-s
 import { CoreModule } from "../core/core.module";
 import { CommonModule } from "@angular/common";
 import { ArticleRoutingModule } from "./article-routing.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ThemeListComponent } from "./theme-list/theme-list.component";
 
 @NgModule({
@@ -15,13 +15,14 @@ import { ThemeListComponent } from "./theme-list/theme-list.component";
         ArticleLayoutComponent,
         ArticleListComponent,
         ArticleSingleDisplayComponent,
-        ThemeListComponent
+        ThemeListComponent,
     ],
     imports: [
         ArticleRoutingModule,
         CommonModule,
         CoreModule,
         ReactiveFormsModule,
+        FormsModule
     ]
 })
 export class ArticleModule {}

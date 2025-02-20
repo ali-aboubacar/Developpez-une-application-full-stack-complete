@@ -12,6 +12,7 @@ public class UserDto {
 
     private String name;
 
+    private String profil;
     private List<ThemeDto> themes;
     private LocalDateTime createdAt;
 
@@ -39,6 +40,14 @@ public class UserDto {
 
     public String getEmail(){
         return this.email;
+    }
+
+    public String getProfil() {
+        return profil;
+    }
+
+    public void setProfil(String profil) {
+        this.profil = profil;
     }
 
     public void setThemes(List<ThemeDto> themes) {

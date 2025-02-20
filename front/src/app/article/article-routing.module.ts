@@ -6,6 +6,7 @@ import { ArticleCreateComponent } from "./article-create/article-create.componen
 import { ArticleSingleDisplayComponent } from "./article-single-dsplay/article-single-display.component";
 import { ThemeListComponent } from "./theme-list/theme-list.component";
 import { UserResolver } from "../_resolver/user-resolver.service";
+import { PageNotFoundComponent } from "../core/components/page-not-found/page-not-found.component";
 
 const routes: Routes = [
     {
@@ -15,6 +16,7 @@ const routes: Routes = [
             { path: 'create', component: ArticleCreateComponent},
             { path: 'themes', component: ThemeListComponent, resolve:{ response: UserResolver }},
             { path: ':id', component: ArticleSingleDisplayComponent},
+            {path: '**', component: PageNotFoundComponent}
         ]
     }
 ]

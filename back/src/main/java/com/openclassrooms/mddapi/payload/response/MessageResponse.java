@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.payload.response;
 
-public class MessageResponse {
+public class MessageResponse extends SignUpResponse{
     private String message;
 
     public MessageResponse(String message) {

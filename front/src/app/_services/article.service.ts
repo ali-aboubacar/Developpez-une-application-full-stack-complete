@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IAllArticles, IArticles, IMessage, ISingleArticle } from "../_interfaces/article";
+import { IArticle, IMessage } from "../_interfaces/article";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -24,17 +24,14 @@ export class ArticleService{
     return this.http.post<IMessage>(`${this.url}/article/${productId}/comments`,{comment: comment})
   }
 
-  getAllArticle():Observable<any>{
-    return this.http.get<any>(`${this.url}/article`)
+  getAllArticle():Observable<IArticle[]>{
+    return this.http.get<IArticle[]>(`${this.url}/article`)
   }
 
-  getOneArticle(articleId: number): Observable<any>{
-    return this.http.get<any>(`${this.url}/article/${articleId}`)
+  getOneArticle(articleId: string): Observable<IArticle>{
+    const ID : Number = parseInt(articleId)
+    return this.http.get<IArticle>(`${this.url}/article/${ID}`)
   }
-
-  // updateProduct(productId: number, formGroup:any): Observable<IMessage>{
-  //   return this.http.patch<IMessage>(this.url+`/products/${productId}`, formGroup)
-  // }
 
   deleteProduct(productId: number): Observable<IMessage>{
     return this.http.delete<IMessage>(this.url+`/article/${productId}`)

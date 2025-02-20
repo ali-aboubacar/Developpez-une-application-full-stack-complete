@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { StrongPasswordRegx } from "src/app/_helpers/validators";
 import { AuthService } from "src/app/_services/auth.service";
 import { TokenService } from "src/app/_services/token.service";
 
@@ -27,7 +28,7 @@ import { TokenService } from "src/app/_services/token.service";
       return this.showPasswordField
     }
   
-    public get loginFormGoupControls(): any{
+    public get loginFormGoupControls(): {[key:string]: AbstractControl}{
       return this.loginFormGoup['controls'];
     }
 
@@ -35,12 +36,12 @@ import { TokenService } from "src/app/_services/token.service";
     ngOnInit(): void {
       this.loginFormGoupField = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required])
+        password: new FormControl('', [Validators.required, Validators.pattern(StrongPasswordRegx)])
       })
     }
 
     togglePasswordVisibility(): void {
-      this.showPasswordField = !this.showPasswordField; // Toggle password visibility
+      this.showPasswordField = !this.showPasswordField;
     }
 
     onSubmit(){
@@ -49,15 +50,8 @@ import { TokenService } from "src/app/_services/token.service";
         next: (res) => {
           console.log(res)
           this.tokenService.saveToken(res.token);
-          // this.tokenService.saveRole(res.role);
-          // this.tokenService.saveUserId(res.userId);
-          // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          // this.router.navigateByUrl(returnUrl).then(() => {
-          //   console.log(res);
-          //   setTimeout(() => {
-          //     window.location.reload();
-          //   }, 3000)
-          // });
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/article';
+          this.router.navigateByUrl(returnUrl)
         },
         error: (err) => {
           console.log(err);

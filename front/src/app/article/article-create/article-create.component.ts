@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { IMessage } from "src/app/_interfaces/article";
 import { ArticleService } from "src/app/_services/article.service";
 
 @Component({
@@ -24,7 +25,7 @@ export class ArticleCreateComponent {
       })
     }
   
-    public get createFormGroupControls(): any{
+    public get createFormGroupControls(): {[key:string]: AbstractControl}{
       return this.createFormGroup['controls'];
     }
     public get createFormGroup(){
@@ -34,10 +35,10 @@ export class ArticleCreateComponent {
     onSubmit() {
         console.log(this.createFormGroup)
       this.articleService.create(this.createFormGroup.get('title')?.value, this.createFormGroup.get('description')?.value, this.createFormGroup.get('theme')?.value,).subscribe({
-        next: (res: any) => {
+        next: (res: IMessage) => {
             console.log(res)
         },
-        error: (err: any) => {
+        error: (err: IMessage) => {
           console.log(err);
         }
       });

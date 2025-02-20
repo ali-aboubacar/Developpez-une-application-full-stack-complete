@@ -1,15 +1,33 @@
-<form class="form-wrap" [formGroup]="createFormGroup" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="title">
-    <div *ngIf="createFormGroupControls.title.invalid && createFormGroupControls.title.errors">
-        <div *ngIf="createFormGroupControls.title.errors.required && (createFormGroupControls.title.dirty || createFormGroupControls.title.touched)" class="error-color">ce champ est obligatoire</div>
+<div class="create-header">
+    <div class="back-icon-wrap">
+        <i class="fa-solid fa-arrow-left fa-2xl extra-margin-left back-arrow" [routerLink]="['/article/home']"></i>
     </div>
-    <input type="text" formControlName="theme">
-    <div *ngIf="createFormGroupControls.theme.invalid && createFormGroupControls.theme.errors">
-        <div *ngIf="createFormGroupControls.theme.errors.required && (createFormGroupControls.theme.dirty || createFormGroupControls.theme.touched)" class="error-color">ce champ est obligatoire</div>
+    <div class="title-wrap">
+        <h2>Créer un nouvel article</h2>
     </div>
-    <input type="text" formControlName="description">
-    <div *ngIf="createFormGroupControls.description.invalid && createFormGroupControls.description.errors">
-        <div *ngIf="createFormGroupControls.description.errors.required && (createFormGroupControls.description.dirty || createFormGroupControls.description.touched)" class="error-color">ce champ est obligatoire</div>
-    </div>
-    <button>enregistrer</button>
-</form>
+</div>
+<div class="form-wrap">
+    <form class="custom-form" [formGroup]="createFormGroup" (ngSubmit)="onSubmit()">
+        <input class="custom-create-input extra-margin-top" type="text" placeholder="Titre de l’article" formControlName="title">
+        <div *ngIf="createFormGroupControls['title'].invalid && createFormGroupControls['title'].errors">
+            <div *ngIf="createFormGroupControls['title'].errors['required'] && (createFormGroupControls['title'].dirty || createFormGroupControls['title'].touched)" class="error-color">ce champ est obligatoire</div>
+        </div>
+        <select class="theme-dropdown extra-margin-top" name="" id="" formControlName="theme">
+            <option value="Theme one">Theme one</option>
+            <option value="Theme two">Theme two</option>
+            <option value="Theme three">Theme three</option>
+            <option value="Theme four">Theme four</option>
+        </select>
+        <textarea class="extra-margin-top custom-content-input" name="" id="" formControlName="description"></textarea>
+        <button mat-raised-button class="custom-button extra-margin-top">enregistrer</button> 
+        <!-- <input type="text" formControlName="theme">
+        <div *ngIf="createFormGroupControls.theme.invalid && createFormGroupControls.theme.errors">
+            <div *ngIf="createFormGroupControls.theme.errors.required && (createFormGroupControls.theme.dirty || createFormGroupControls.theme.touched)" class="error-color">ce champ est obligatoire</div>
+        </div>
+        <input type="text" formControlName="description">
+        <div *ngIf="createFormGroupControls.description.invalid && createFormGroupControls.description.errors">
+            <div *ngIf="createFormGroupControls.description.errors.required && (createFormGroupControls.description.dirty || createFormGroupControls.description.touched)" class="error-color">ce champ est obligatoire</div>
+        </div>
+        <button>enregistrer</button> -->
+    </form>
+</div>

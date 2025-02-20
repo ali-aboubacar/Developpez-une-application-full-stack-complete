@@ -1,11 +1,13 @@
 export interface IArticle {
-    title: string,
-    description: string,
-    price: number,
-    color: string,
-    quantity: number,
-    comments: [],
-    userId: number,
+    id: number
+    title: string
+    description: string
+    created_at: string
+    updated_at: string
+    theme: string
+    comments: []
+    owner_id: number
+    userName: string
 }
 
 export interface ISingleArticle{
@@ -14,14 +16,6 @@ export interface ISingleArticle{
     likedComment: []
 }
 
-export interface IArticles{
-    products: IArticle[]
-}
-
-export interface IAllArticles{
-    listOfProducts: IArticles,
-    totalProducts: number
-}
 
 export interface IMessage{
     message: string

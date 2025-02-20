@@ -1,0 +1,15 @@
+.nav-bar{
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid;
+}
+.display-logo{
+    width: 10%;
+}
+.left-side-nav{
+    display: flex;
+    width: 50%;
+    align-items: center;
+}

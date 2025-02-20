@@ -4,13 +4,15 @@ import { ProfileLayoutComponent } from "./profile-layout/profile-layout.componen
 import { DisplayProfileComponent } from "./display-profile/display-profile.component";
 import { UpdatePicComponent } from "./update-pic/update-pic.component";
 import { UserResolver } from "../_resolver/user-resolver.service";
+import { PageNotFoundComponent } from "../core/components/page-not-found/page-not-found.component";
 
 const routes: Routes = [
     {
         path: '', component: ProfileLayoutComponent, children: [
             { path: '', redirectTo: 'view', pathMatch: 'full' },
             { path: 'view', component: DisplayProfileComponent, resolve:{ response: UserResolver }},
-            { path: 'update', component: UpdatePicComponent, resolve:{ response: UserResolver }}
+            { path: 'update', component: UpdatePicComponent, resolve:{ response: UserResolver }},
+            {path: '**', component: PageNotFoundComponent}
         ]
     }
 ]

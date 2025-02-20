@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.mapper;
 
 import com.openclassrooms.mddapi.dtos.CommentDto;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
 import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.UserService;
@@ -28,7 +29,7 @@ public class CommentMapper {
         if (commentDto == null){
             return null;
         }
-        User owner = userService.getUserById(commentDto.getOwner_id()).orElseThrow(() -> new RuntimeException("User not found"));
+        User owner = userService.getUserById(commentDto.getOwner_id()).orElseThrow(() -> new ResourceNotFoundException("User not found" + commentDto.getOwner_id()));
         Comment comment = new Comment();
         comment.setId(commentDto.getId());
         comment.setComment(commentDto.getComment());

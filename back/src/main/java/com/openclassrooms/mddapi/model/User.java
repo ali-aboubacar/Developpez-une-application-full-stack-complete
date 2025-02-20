@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "profil")
+    private String profil;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -91,6 +95,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfil() {
+        return profil;
+    }
+
+    public void setProfil(String profil) {
+        this.profil = profil;
     }
 
     public void setComments(Set<Comment> comments) {

@@ -1,0 +1,44 @@
+.create-header{
+    display: flex;
+    align-items: center;
+}
+.back-icon-wrap{
+    width: 40%;
+}
+.title-wrap{
+    width: 60%;
+}
+.extra-margin-left{
+    margin-left: 2%;
+}
+.custom-create-input{
+    height: 5vh;    
+    border-radius: 7px;
+    border: 0.2px solid;
+}
+.theme-dropdown{
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Safari, Chrome, Opera */
+    -webkit-appearance: none;
+    height: 5vh;    
+    border-radius: 7px;
+    border: 0.2px solid;
+
+}
+.theme-dropdown ::-ms-expand{
+    display: none;
+}
+.custom-content-input{
+    height: 15vh;
+    border-radius: 7px;
+    border: 0.2px solid;
+    resize: none;
+}
+h2{
+    margin: 0;
+}
+
+.extra-margin-top{
+    margin-top: 5%;
+}

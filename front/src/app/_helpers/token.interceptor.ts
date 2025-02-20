@@ -31,9 +31,9 @@ export class TokenInterceptor implements HttpInterceptor {
           if(error instanceof HttpErrorResponse && error.status === 401){
             this.tokenService.clearToken();
             this.router.navigate(['auth']).then(() => {
-              setTimeout(() => {
-                window.location.reload();
-              }, 3000);
+              // setTimeout(() => {
+              //   window.location.reload();
+              // }, 3000);
             })
   
           }

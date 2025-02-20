@@ -20,6 +20,7 @@ public class UserMapper {
         userDto.setId(user.getId());
         userDto.setEmail(user.getEmail());
         userDto.setName(user.getName());
+        userDto.setProfil(user.getProfil());
         userDto.setThemes(user.getThemes().stream().map(themeMapper::toThemeDto).collect(Collectors.toList()));
         userDto.setCreatedAt(user.getCreatedAt());
         userDto.setUpdatedAt(user.getUpdatedAt());

@@ -1,11 +1,15 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dtos.CommentDto;
+import com.openclassrooms.mddapi.jwtUtils.JwtUtils;
 import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.payload.request.CommentRequest;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.service.CommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,26 +20,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class CommentController {
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
     @Autowired
     CommentService commentService;
 
     @GetMapping("/comments/{id}")
-    public ResponseEntity<?> getAllCommentByArticle(@PathVariable long id){
+    public ResponseEntity<Page<CommentDto>> getAllCommentByArticle(@PathVariable long id, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
         try {
-
-            List<CommentDto> comments =  commentService.getAllCommentForArticle(id);
+            Page<CommentDto> comments =  commentService.getAllCommentForArticle(id, page, size);
             return new ResponseEntity<>(comments, HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (RuntimeException e){
+            logger.error("Error Getting all comments ", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
     @PostMapping("/comments")
-    public ResponseEntity<?> createComment(@RequestBody CommentRequest comment){
+    public ResponseEntity<MessageResponse> createComment(@RequestBody CommentRequest comment){
         try {
             commentService.createComment(comment);
             return new ResponseEntity<MessageResponse>(new MessageResponse("Comment send with success"), HttpStatus.CREATED);
-        } catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (RuntimeException e){
+            logger.error("Error creating a comment", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

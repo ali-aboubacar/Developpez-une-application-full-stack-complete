@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { ICredential, IUserCredential } from "../_interfaces/credentials";
 import { Observable } from "rxjs";
-import { IToken } from "../_interfaces/token";
 import { HttpClient } from '@angular/common/http';
+import { IToken } from "../_interfaces/token";
+import { FormGroup } from "@angular/forms";
 
 
 @Injectable({
@@ -15,11 +16,11 @@ import { HttpClient } from '@angular/common/http';
   
     constructor(private http: HttpClient) { }
   
-    login(credentials:ICredential): Observable<any>{
-      return this.http.post<any>(this.url+'/login', credentials)
+    login(credentials:ICredential): Observable<IToken>{
+      return this.http.post<IToken>(this.url+'/login', credentials)
     }
   
-    signUp(formGroup:any): Observable<any>{
-      return this.http.post<any>(this.url+'/signup', formGroup)
+    signUp(formGroup: FormGroup): Observable<IToken>{
+      return this.http.post<IToken>(this.url+'/signup', formGroup)
     }
   }

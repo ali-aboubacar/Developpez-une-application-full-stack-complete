@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { IMessage } from "../_interfaces/article";
 import { Observable } from "rxjs";
 import { ThemeEnum } from "../_enums/themes.enum";
+import { IUser } from "../_interfaces/user";
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,17 @@ export class UserService{
         return this.http.delete<IMessage>(`${this.url}/unsubscribe/${themeId}`)
     }
 
-    getCurrentUser(): Observable<any>{
-        return this.http.get<any>(`${this.url}/currentuser`)
+    getCurrentUser(): Observable<IUser>{
+        return this.http.get<IUser>(`${this.url}/currentuser`)
+    }
+
+    edit(email: string, userName: string, profil: File, oldPassword: string, newPassword: string): Observable<IMessage>{
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('userName', userName);
+        formData.append('profil', profil);
+        formData.append('oldPassword',oldPassword);
+        formData.append('newPassword',newPassword)
+        return this.http.post<IMessage>(`${this.url}/edit`, formData)
     }
 }

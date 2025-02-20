@@ -1,17 +1,10 @@
-<!-- <p>theme-list component</p>
-<mat-card appearance="outlined" *ngFor="let theme of themes">
-    <mat-card-content>{{theme.name}}</mat-card-content>
-    <button  mat-raised-button class="custom-button" (click)="subscribe(theme.id)">Subscribe</button>
-    <button  mat-raised-button class="custom-button" (click)="unSubscribe(theme.id)">Unsubscribe</button>
-</mat-card> -->
-
 <div class="card-list-wrap">
     <div class="grey-color custom-card" *ngFor="let theme of themes">
-        <h2>{{theme.name}}</h2>
+        <h2>{{theme.name | titlecase}}</h2>
         <p>{{theme.description}}</p>
         <div class="subscribe-wrap">
-            <button  mat-raised-button class="custom-button" (click)="subscribe(theme.id)" *ngIf="!findSubscribed(theme.id)">Subscribe</button>
-            <button  mat-raised-button class="custom-button" (click)="unSubscribe(theme.id)" *ngIf="findSubscribed(theme.id)">Unsubscribe</button>
+            <button  mat-raised-button class="custom-button" (click)="subscribe(theme.id)" *ngIf="!findSubscribed(theme.id)">S’abonner</button>
+            <button  mat-raised-button class="custom-button" (click)="unSubscribe(theme.id)" *ngIf="findSubscribed(theme.id)">Se désabonner</button>
         </div>
     </div>
 </div>

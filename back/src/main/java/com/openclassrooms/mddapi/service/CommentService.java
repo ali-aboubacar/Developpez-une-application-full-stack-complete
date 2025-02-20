@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dtos.CommentDto;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
 import com.openclassrooms.mddapi.mapper.CommentMapper;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.Comment;
@@ -10,6 +11,9 @@ import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.CommentRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -35,21 +39,22 @@ public class CommentService {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             Long userId = userDetails.getId();
-            Article rental = articleRepository.findById(comment.getArticle_id()).orElseThrow(() -> new RuntimeException("Rental not found"));
+            Article rental = articleRepository.findById(comment.getArticle_id()).orElseThrow(() -> new ResourceNotFoundException("Article not found" + comment.getArticle_id()));
             User owner = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             return commentRepository.save(new Comment(
                     comment.getComment(),
                     owner,
                     rental
             ));
-        } catch (Exception e){
+        } catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }
     }
 
-    public List<CommentDto> getAllCommentForArticle(long id){
+    public Page<CommentDto> getAllCommentForArticle(long id, int page, int size){
         try {
-            return commentRepository.findAllByArticle_id(id).stream().map(commentMapper::toCommentDto).collect(Collectors.toList());
+            Pageable pageable = PageRequest.of(page,size);
+            return commentRepository.findAllByArticle_id(id, pageable).map(commentMapper::toCommentDto);
         } catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }

@@ -1,29 +1,25 @@
-<app-header></app-header>
-<form class="form-wrap" [formGroup]="loginFormGoup" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="example@email.com" formControlName="email">
-        <mat-error *ngIf="loginFormGoupControls.email.invalid && loginFormGoupControls.email.errors">
-            <mat-error *ngIf="loginFormGoupControls.email.errors.required && (loginFormGoupControls.email.dirty || loginFormGoupControls.email.touched)">ce champ est obligatoire</mat-error>
-            <mat-error *ngIf="loginFormGoupControls.email.errors.email">ce champ doit contenir un email</mat-error>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput [type] ="showPassword ? 'password' : 'text'" placeholder="password" formControlName="password">
-        <button
-        type="button"
-        mat-icon-button
-        matSuffix
-        (click)="togglePasswordVisibility()"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="showPassword"
-      >
-        <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-        <mat-error *ngIf="loginFormGoupControls.password.invalid && loginFormGoupControls.password.errors">
-            <mat-error *ngIf="loginFormGoupControls.password.errors.required && (loginFormGoupControls.password.dirty || loginFormGoupControls.password.touched)" >ce champ est obligatoire</mat-error>
-        </mat-error>
-      </mat-form-field>
-    <button mat-raised-button class="custom-button" type="submit">Connexion</button>
+<app-header-auth></app-header-auth>
+<div class="form-wrap">
+  <div class="header-wrap">
+    <i class="fa-solid fa-arrow-left fa-2xl  arrow-icon back-arrow" [routerLink]="['/']"></i>
+    <h2>Se connecter</h2>
+  </div>
+  <form class="custom-form" [formGroup]="loginFormGoup" (ngSubmit)="onSubmit()">
+    <label class="custom-label extra-margin-top" for="emailInput">Adresse e-mail</label>
+    <input class="custom-input" type="email" id="emailInput" formControlName="email">
+    <div *ngIf="loginFormGoupControls['email'].invalid && loginFormGoupControls['email'].errors">
+        <div *ngIf="loginFormGoupControls['email'].errors['required'] && (loginFormGoupControls['email'].dirty || loginFormGoupControls['email'].touched)" class="error-color">ce champ est obligatoire</div>
+        <div *ngIf="loginFormGoupControls['email'].errors['email']" class="error-color">ce champ doit contenir un email</div>
+    </div>
+    <label class="custom-label extra-margin-top" for="passwordInput">Mot de passe</label>
+    <div class="custom-pasword-wrap">
+      <input class="custom-input custom-pasword-input" [type] ="showPassword ? 'password' : 'text'" id="passwordInput" formControlName="password">
+      <i class="fa-regular fa-xl custom-show-password" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye purple-color'" (click)="togglePasswordVisibility()"></i>
+    </div>
+    <div *ngIf="loginFormGoupControls['password'].invalid && loginFormGoupControls['password'].errors">
+        <div *ngIf="loginFormGoupControls['password'].errors['required'] && (loginFormGoupControls['password'].dirty || loginFormGoupControls['password'].touched)" class="error-color">ce champ est obligatoire</div>
+        <div *ngIf="loginFormGoupControls['password'].errors['pattern'] && (loginFormGoupControls['password'].dirty || loginFormGoupControls['password'].touched)" class="error-color">ce champ doit contenir au moins une lettre Majiscule un charactere speciaux et un chiffre</div>
+    </div>
+    <button  mat-raised-button class="custom-button extra-margin-top" type="submit" [disabled]="!loginFormGoup.dirty || loginFormGoup.invalid">Connexion</button>
 </form>
+</div>

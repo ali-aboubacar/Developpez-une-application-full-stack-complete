@@ -1,12 +1,12 @@
 <div class="banner-custom">
-  <button mat-raised-button class="custom-button">Créer un article</button>
-  <div class="filter-wrap">
+  <button mat-raised-button class="custom-button" [routerLink]="['/article/create']">Créer un article</button>
+  <div class="filter-wrap" (click)="toggleSort()">
     <h4>Trier par</h4>
     <i class="fa-solid fa-arrow-down"></i>
     </div>
 </div>
 <div class="card-list-wrap">
-  <div class="grey-color custom-card" *ngFor="let article of allArticle" [routerLink]="['/article',article.id]">
+  <div class="grey-color custom-card custom-pointer" *ngFor="let article of allArticle" [routerLink]="['/article',article.id]">
     <h2>{{article.title}}</h2>
     <div class="card-subtitle">
       <h5>Date : {{article.created_at | date}}</h5>

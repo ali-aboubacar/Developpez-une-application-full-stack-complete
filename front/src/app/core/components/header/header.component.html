@@ -4,15 +4,26 @@
     </div>
     <div class="left-side-nav">
         <ul>
-            <li>Article</li>
-            <li>themes</li>
+            <li><a [routerLink]="['/article/home']" routerLinkActive="active">Article</a></li>
+            <li><a [routerLink]="['/article/themes']" routerLinkActive="active">Thèmes</a></li>
         </ul>
-        <div class="profile-pic">
+        <div class="profile-pic" [routerLink]="['/profile']" >
+            <img [routerLink]="['/profile']" src="{{profil}}" alt="profile pic">
+            <i class="fa-regular fa-pen-to-square" (click)="toggleEditPic()" [routerLink]="['/profile']"></i>
+        </div>
+    </div>
+    <button mat-icon-button class="burger-menu" aria-label="icon-button with menu icon" (click)="toggleMobileNav()">
+        <mat-icon>{{toggleDiv ? 'close' : 'menu'}}</mat-icon>
+    </button>
+</nav>
+<div *ngIf="toggleDiv" class="mobile-nav-wrap" (click)="toggleMobileNav()">
+    <div class="mobile-nav">
+        <ul>
+            <li><a [routerLink]="['/article/home']" routerLinkActive="active">Article</a></li>
+            <li><a [routerLink]="['/article/themes']" routerLinkActive="active">Thèmes</a></li>
+        </ul>
+        <div class="profile-pic" [routerLink]="['/profile']">
             <img src="https://img.freepik.com/vecteurs-premium/illustration-plate-vectorielle-echelle-gris-profil-utilisateur-avatar-image-profil-personne-icone-profil-entreprise-femme-convient-pour-profils-medias-sociaux-icones-economiseurs-ecran-comme-modelex9_719432-1328.jpg" alt="profile pic">
         </div>
     </div>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-</nav>
-
+</div>
