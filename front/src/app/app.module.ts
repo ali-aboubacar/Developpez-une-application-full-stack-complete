@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { tokenInterceptorProvider } from './_helpers/token.interceptor';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './core/components/home/home.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],

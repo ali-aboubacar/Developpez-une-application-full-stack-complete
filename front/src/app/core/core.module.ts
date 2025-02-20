@@ -10,12 +10,14 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import {MatDividerModule} from '@angular/material/divider';
 import { HeaderAuthComponent } from "./components/header-auth/header-auth.component";
+import { HomeComponent } from "./components/home/home.component";
 
 @NgModule({
     declarations: [
         HeaderComponent,
         PageNotFoundComponent,
-        HeaderAuthComponent
+        HeaderAuthComponent,
+        HomeComponent
     ],
     imports: [
         RouterModule,
@@ -34,6 +36,7 @@ import { HeaderAuthComponent } from "./components/header-auth/header-auth.compon
         HeaderComponent,
         PageNotFoundComponent,
         HeaderAuthComponent,
+        HomeComponent,
         MatCardModule,
         MatIconModule,
         MatFormFieldModule,
