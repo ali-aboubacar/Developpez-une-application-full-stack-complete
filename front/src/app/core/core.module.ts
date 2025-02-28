@@ -11,13 +11,15 @@ import { MatInputModule } from "@angular/material/input";
 import {MatDividerModule} from '@angular/material/divider';
 import { HeaderAuthComponent } from "./components/header-auth/header-auth.component";
 import { HomeComponent } from "./components/home/home.component";
+import { ToastComponent } from "./components/toast/toast.component";
 
 @NgModule({
     declarations: [
         HeaderComponent,
         PageNotFoundComponent,
         HeaderAuthComponent,
-        HomeComponent
+        HomeComponent,
+        ToastComponent
     ],
     imports: [
         RouterModule,
@@ -37,6 +39,7 @@ import { HomeComponent } from "./components/home/home.component";
         PageNotFoundComponent,
         HeaderAuthComponent,
         HomeComponent,
+        ToastComponent,
         MatCardModule,
         MatIconModule,
         MatFormFieldModule,

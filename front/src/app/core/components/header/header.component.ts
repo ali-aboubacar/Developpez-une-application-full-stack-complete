@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { errorType } from "src/app/_interfaces/toasr";
 import { EditPicService } from "src/app/_services/edit-pic.service";
+import { ToastService } from "src/app/_services/toast.service";
 import { UserService } from "src/app/_services/user.service";
 
 @Component({
@@ -10,11 +12,17 @@ import { UserService } from "src/app/_services/user.service";
 export class HeaderComponent implements OnInit{
     private toggleDivField: boolean = false;
     private profilField!: string;
-    constructor(private editPicService: EditPicService, private userService: UserService){}
+    constructor(private editPicService: EditPicService,
+        private userService: UserService,private toastService: ToastService){}
     ngOnInit(): void {
-        this.userService.getCurrentUser().subscribe((data)=>{
-            console.log(data)
-            this.profilField = data.profil
+        this.userService.getCurrentUser().subscribe({
+            next: (data)=>{
+                console.log(data)
+                this.profilField = data.profil
+            },
+            error: (err) => {
+                this.toastService.showToast(err.error.message, errorType(err))
+            }
         })
     }
     public get toggleDiv(){

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { IArticle } from "src/app/_interfaces/article";
+import { errorType } from "src/app/_interfaces/toasr";
 import { ArticleService } from "src/app/_services/article.service";
+import { ToastService } from "src/app/_services/toast.service";
 
 @Component({
     selector: 'app-article-list',
@@ -11,7 +13,8 @@ import { ArticleService } from "src/app/_services/article.service";
 export class ArticleListComponent implements OnInit{
     private allArticleField!: IArticle[];
     private isAscending: boolean =true
-    constructor(private articleService: ArticleService){}
+    constructor(private articleService: ArticleService,
+        private toastService: ToastService){}
 
     public get allArticle(){
         return this.allArticleField;
@@ -21,9 +24,14 @@ export class ArticleListComponent implements OnInit{
     }
 
     loadAllArticle(){
-        this.articleService.getAllArticle().subscribe((data) => {
-            this.allArticleField = data;
-            console.log(data);
+        this.articleService.getAllArticle().subscribe({
+            next: (data) => {
+                this.allArticleField = data;
+                console.log(data);
+            },
+            error: (err) => {
+                this.toastService.showToast(err.error.message, errorType(err));
+            }
         });
     }
     sortArticle(order: 'asc' | 'desc'){

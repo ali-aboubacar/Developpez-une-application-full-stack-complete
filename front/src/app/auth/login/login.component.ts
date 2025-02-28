@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StrongPasswordRegx } from "src/app/_helpers/validators";
+import { errorType } from "src/app/_interfaces/toasr";
 import { AuthService } from "src/app/_services/auth.service";
+import { ToastService } from "src/app/_services/toast.service";
 import { TokenService } from "src/app/_services/token.service";
 
 @Component({
@@ -18,7 +20,8 @@ import { TokenService } from "src/app/_services/token.service";
     constructor(private authService: AuthService,
       private tokenService: TokenService,
       private router: Router,
-      private route: ActivatedRoute) {}
+      private route: ActivatedRoute,
+      private toastService: ToastService) {}
 
     public get loginFormGoup() {
       return this.loginFormGoupField;
@@ -55,6 +58,7 @@ import { TokenService } from "src/app/_services/token.service";
         },
         error: (err) => {
           console.log(err);
+          this.toastService.showToast(err.error.message, errorType(err));
         }
       })
     }

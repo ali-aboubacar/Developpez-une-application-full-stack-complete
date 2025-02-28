@@ -2,7 +2,9 @@ import { Component } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { nameValidator, StrongPasswordRegx } from "src/app/_helpers/validators";
+import { errorType } from "src/app/_interfaces/toasr";
 import { AuthService } from "src/app/_services/auth.service";
+import { ToastService } from "src/app/_services/toast.service";
 import { TokenService } from "src/app/_services/token.service";
 
 @Component({
@@ -17,12 +19,14 @@ import { TokenService } from "src/app/_services/token.service";
     constructor(private authService: AuthService,
       private tokenService: TokenService,
       private router: Router,
-      private route: ActivatedRoute) {
+      private route: ActivatedRoute,
+      private toastService: ToastService) {
+
       this.signUpFormGroupField = new FormGroup({
         name: new FormControl('', [Validators.required, nameValidator()]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required, Validators.pattern(StrongPasswordRegx)]),
-      })
+      });
     }
   
     public get signUpFormGroupControls(): {[key:string]: AbstractControl}{
@@ -62,7 +66,7 @@ import { TokenService } from "src/app/_services/token.service";
         },
         error: (err) => {
           console.log(err)
-          // this.toastService.showToast(err.error.message, 'error')
+          this.toastService.showToast(err.error.message, errorType(err))
         }
       })
     }

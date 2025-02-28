@@ -10,7 +10,7 @@ import { tokenInterceptorProvider } from './_helpers/token.interceptor';
 import { HomeComponent } from './core/components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -46,10 +46,10 @@ public class ArticleController {
         try {
             Optional<ArticleDto> article = articleService.getRentalById(id);
             return article.map(value -> new ResponseEntity(value, HttpStatus.OK))
-                    .orElseThrow(() -> new ResourceNotFoundException("Not foun article with id" + id));
-        } catch (RuntimeException e) {
-            logger.error("Error getting one srticle", e.getMessage());
-            throw new RuntimeException(e.getMessage());
+                    .orElseThrow(() -> new ResourceNotFoundException("Not found article with id" + id));
+        } catch (Exception e) {
+            logger.error("Error getting one article", e.getMessage());
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
     @GetMapping("/article")

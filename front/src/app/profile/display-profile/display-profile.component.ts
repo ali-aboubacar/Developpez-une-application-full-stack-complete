@@ -2,8 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { mustMatch, nameValidator, StrongPasswordRegx } from "src/app/_helpers/validators";
+import { errorType } from "src/app/_interfaces/toasr";
 import { IUser } from "src/app/_interfaces/user";
 import { EditPicService } from "src/app/_services/edit-pic.service";
+import { ToastService } from "src/app/_services/toast.service";
 import { TokenService } from "src/app/_services/token.service";
 import { UserService } from "src/app/_services/user.service";
 
@@ -26,7 +28,8 @@ export class DisplayProfileComponent implements OnInit{
         private userService: UserService,
         private editPicService: EditPicService,
         private tokenService: TokenService,
-        private router: Router
+        private router: Router,
+        private toastService: ToastService
     ){
         this.editFormGroupField = new FormGroup({
             email: new FormControl('',[Validators.required, Validators.email]),
@@ -35,6 +38,10 @@ export class DisplayProfileComponent implements OnInit{
             newPassword: new FormControl('',[Validators.required, Validators.pattern(StrongPasswordRegx)]),
             confPassword: new FormControl('',[Validators.required, Validators.pattern(StrongPasswordRegx)]), 
           },[mustMatch('newPassword', 'confPassword')]);
+    }
+
+    public get previewImg(){
+        return this.previewImgField;
     }
 
     public get editFormGroup(){
@@ -85,17 +92,28 @@ export class DisplayProfileComponent implements OnInit{
 
 
     unSubscribe(themeId: number){
-        this.userService.unSubscribe(themeId).subscribe((data)=>{
-            console.log(data);
-            this.userService.getCurrentUser().subscribe((data)=>{
-                this.currentUserField = data;
-            });
+        this.userService.unSubscribe(themeId).subscribe({
+            next: (data)=>{
+                console.log(data);
+                this.userService.getCurrentUser().subscribe({
+                    next: (data)=>{
+                        this.currentUserField = data;
+                    },
+                    error: (err) => {
+                        this.toastService.showToast(err.error.message, errorType(err))
+                    }
+                });
+            },
+            error: (err) => {
+                this.toastService.showToast(err.error.message, errorType(err))
+            }
         })
     }
 
-    onFileSelect(event: any){
-        if (event.target.files.length > 0) {
-          this.imageUrlField = event.target.files[0];
+    onFileSelect(event: Event){
+        const input = event.target as HTMLInputElement
+        if (input.files!.length > 0) {
+          this.imageUrlField = input.files![0];
     
           const reader = new FileReader();
           reader.onload = e => this.previewImgField = reader.result;
@@ -104,7 +122,19 @@ export class DisplayProfileComponent implements OnInit{
     }
       
     editProfile(){
-            this.userService.edit(this.editFormGroupField.get('email')?.value, this.editFormGroupField.get('userName')?.value, this.imageUrlField, this.editFormGroup.get('password')?.value, this.editFormGroupField.get('confPassword')?.value).subscribe();
+        this.userService.edit(
+            this.editFormGroupField.get('email')?.value,
+            this.editFormGroupField.get('userName')?.value,
+            this.imageUrlField, this.editFormGroup.get('password')?.value,
+            this.editFormGroupField.get('confPassword')?.value).subscribe({
+                next: (data) => {
+                    this.toastService.showToast(data.message, 'success');
+                    this.router.navigate(['/article'])
+                },
+                error: (err) => {
+                    this.toastService.showToast(err.error.message, errorType(err))
+                }
+            });
     }
 
     logout():void {

@@ -11,7 +11,10 @@
             <div *ngIf="editFormGroupControls['email'].errors['required'] && (editFormGroupControls['email'].dirty || editFormGroupControls['email'].touched)" class="error-color">ce champ est obligatoire</div>
             <div *ngIf="editFormGroupControls['email'].errors['email']" class="error-color">ce champ doit contenir un email</div>
         </div>
-        <input class="extra-margin-top" type="file" *ngIf="toggleEditPic" (change)="onFileSelect($event)">
+        <div>
+            <input class="extra-margin-top" type="file" *ngIf="toggleEditPic" (change)="onFileSelect($event)">
+            <img class="rounded" id="imagePreview" [src]="previewImg" alt="your image" *ngIf="previewImg"/>
+        </div>
         <div class="custom-pasword-wrap extra-margin-top" *ngIf="toggleEditPic">
           <input class="custom-input custom-pasword-input" placeholder="Mot de passe" [type] ="showPassword ? 'password' : 'text'" id="passwordInput" formControlName="password">
           <i class="fa-regular fa-xl custom-show-password" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye purple-color'" (click)="togglePasswordVisibility()"></i>
