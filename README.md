@@ -28,6 +28,10 @@ Cloner le projet depuis le github.
 Remplacer dans le fichier apllication.properties les valeurs suivant par vos propre access
 * spring.datasource.username=
 * spring.datasource.password=
+* spring.datasource.url=
+* server.port=
+* openclassrooms.app.jwtSecret =
+* openclassrooms.app.jwtExpirationMs =
 
 lancer le projet en local ce qui va creer aumatiquement les tables necessaire.
 lancer les Query suivant pour peupler les tables roles et themes.
