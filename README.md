@@ -20,6 +20,22 @@ As you may have seen if you already started the app, a simple home page containi
 
 This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
+## Instalation base de donner
+creer une base de donner au nom de db_mdd_api 
+## Run
+Cloner le projet depuis le github.
 
-Good luck!
+Remplacer dans le fichier apllication.properties les valeurs suivant par vos propre access
+* spring.datasource.username=
+* spring.datasource.password=
+
+lancer le projet en local ce qui va creer aumatiquement les tables necessaire.
+lancer les Query suivant pour peupler les tables roles et themes.
+>INSERT INTO roles(name) VALUES('ROLE_USER');
+>INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
+>INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
+>INSERT INTO themes(name, description) VALUES('THEME_ONE','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
+>INSERT INTO themes(name, description) VALUES('THEME_TWO','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
+>INSERT INTO themes(name, description) VALUES('THEME_THREE','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
+>INSERT INTO themes(name, description) VALUES('THEME_FOUR','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
