@@ -1,12 +1,12 @@
 <div class="form-wrap">
     <h2>Profil Utilisateur</h2>
     <form class="custom-form" [formGroup]="editFormGroup" (ngSubmit)="editProfile()">
-        <input class="custom-input extra-margin-top" type="text" id="nameInput" formControlName="userName">
+        <input class="custom-input extra-margin-top" type="text" id="nameInput" formControlName="userName" [placeholder]="currentUser.name">
         <div *ngIf="editFormGroupControls['userName'].invalid && editFormGroupControls['userName'].errors">
           <div *ngIf="editFormGroupControls['userName'].errors['required'] && (editFormGroupControls['userName'].dirty || editFormGroupControls['userName'].touched)" class="error-color">ce champ est obligatoire</div>
           <div *ngIf="editFormGroupControls['userName'].errors['nameValidator'] && (editFormGroupControls['userName'].dirty || editFormGroupControls['userName'].touched)" class="error-color">ce champ ne doit pas contenir de caractere speciaux</div>
         </div>
-        <input class="custom-input extra-margin-top" type="email" id="emailInput" formControlName="email">
+        <input class="custom-input extra-margin-top" type="email" id="emailInput" formControlName="email" [placeholder]="currentUser.email">
         <div *ngIf="editFormGroupControls['email'].invalid && editFormGroupControls['email'].errors">
             <div *ngIf="editFormGroupControls['email'].errors['required'] && (editFormGroupControls['email'].dirty || editFormGroupControls['email'].touched)" class="error-color">ce champ est obligatoire</div>
             <div *ngIf="editFormGroupControls['email'].errors['email']" class="error-color">ce champ doit contenir un email</div>
