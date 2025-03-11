@@ -31,18 +31,16 @@ export class ThemeListComponent implements OnInit{
     ngOnInit(): void {
         this.loadAllTheme();
         this.currentUserField = this.route.snapshot.data['response'];
-        console.log(this.currentUserField)
     }
 
     findSubscribed(themeId: number): boolean{
        return !!this.currentUser.themes.find((theme: ITheme) => theme.id === themeId);
     }
 
-    loadAllTheme(){
+    loadAllTheme(): void{
         this.themeService.getAllTheme().subscribe({
             next: (data)=>{
                 this.themesField = data
-                console.log(data)
             },
             error: (err) => {
                 this.toastService.showToast(err.error.message, errorType(err));
@@ -50,10 +48,9 @@ export class ThemeListComponent implements OnInit{
         })
     }
 
-    subscribe(themeId: number){
+    subscribe(themeId: number): void{
         this.userService.subscribe(themeId).subscribe({
             next: (data)=>{
-                console.log(data);
                 this.userService.getCurrentUser().subscribe({
                     next: (data)=>{
                         this.currentUserField = data;
@@ -69,10 +66,9 @@ export class ThemeListComponent implements OnInit{
         })
     }
 
-    unSubscribe(themeId: number){
+    unSubscribe(themeId: number): void{
         this.userService.unSubscribe(themeId).subscribe({
             next: (data)=>{
-                console.log(data);
                 this.userService.getCurrentUser().subscribe({
                     next: (data)=>{
                         this.currentUserField = data;

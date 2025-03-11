@@ -40,7 +40,7 @@ public class CommentService {
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             Long userId = userDetails.getId();
             Article rental = articleRepository.findById(comment.getArticle_id()).orElseThrow(() -> new ResourceNotFoundException("Article not found" + comment.getArticle_id()));
-            User owner = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+            User owner = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
             return commentRepository.save(new Comment(
                     comment.getComment(),
                     owner,

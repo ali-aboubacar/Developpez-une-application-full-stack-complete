@@ -18,8 +18,7 @@ export class ArticleCreateComponent {
   
 
   
-    constructor(private articleService: ArticleService,
-      private router: Router,private toastService: ToastService){
+    constructor(private articleService: ArticleService, private toastService: ToastService){
       this.createFormGroupField = new FormGroup({
         title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
         theme: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
@@ -34,17 +33,14 @@ export class ArticleCreateComponent {
     return this.createFormGroupField
     }
   
-    onSubmit() {
-        console.log(this.createFormGroup)
+    onSubmit(): void {
       this.articleService.create(this.createFormGroup.get('title')?.value,
       this.createFormGroup.get('description')?.value,
       this.createFormGroup.get('theme')?.value,).subscribe({
         next: (res) => {
-            console.log(res)
             this.toastService.showToast(res.message, 'success');
         },
         error: (err) => {
-          console.log(err);
           this.toastService.showToast(err.error.message, errorType(err));
         }
       });

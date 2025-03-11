@@ -23,25 +23,24 @@ export class ArticleListComponent implements OnInit{
         this.loadAllArticle();
     }
 
-    loadAllArticle(){
+    loadAllArticle(): void{
         this.articleService.getAllArticle().subscribe({
             next: (data) => {
                 this.allArticleField = data;
-                console.log(data);
             },
             error: (err) => {
                 this.toastService.showToast(err.error.message, errorType(err));
             }
         });
     }
-    sortArticle(order: 'asc' | 'desc'){
+    sortArticle(order: 'asc' | 'desc'): void{
         this.allArticleField.sort((a:IArticle,b:IArticle) => {
             const dateA = new Date (a.created_at).getTime();
             const dateB = new Date (b.created_at).getTime();
             return order === 'asc' ? dateA - dateB : dateB - dateA;
         })
     }
-    toggleSort(){
+    toggleSort(): void{
         this.sortArticle(this.isAscending ? 'asc':'desc' )
         this.isAscending = !this.isAscending
     }

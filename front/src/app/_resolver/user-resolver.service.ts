@@ -10,7 +10,7 @@ import { IUser } from "../_interfaces/user";
 export class UserResolver implements Resolve<IUser>{
     constructor(private userService: UserService){}
     
-    resolve():Observable<IUser> {
+    resolve(): Observable<IUser> {
         return this.userService.getCurrentUser();
     }
 }

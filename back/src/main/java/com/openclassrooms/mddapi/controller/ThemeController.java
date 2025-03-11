@@ -24,11 +24,6 @@ public class ThemeController {
 
     @GetMapping("/themes")
     public ResponseEntity<List<ThemeDto>> getAllThemes(){
-        try{
-            return new ResponseEntity<>(themeService.getThemes(), HttpStatus.OK);
-        } catch (RuntimeException e){
-            logger.error("Error getting all themes", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
+        return new ResponseEntity<>(themeService.getThemes(), HttpStatus.OK);
     }
 }

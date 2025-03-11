@@ -12,10 +12,10 @@ export class UserService{
     url = "http://localhost:3002/api";
 
     constructor(private http: HttpClient){}
-    subscribe(themeId: number):Observable<IMessage>{
+    subscribe(themeId: number): Observable<IMessage>{
         return this.http.post<IMessage>(`${this.url}/subscribe/${themeId}`,{})
     }
-    unSubscribe(themeId: number):Observable<IMessage>{
+    unSubscribe(themeId: number): Observable<IMessage>{
         return this.http.delete<IMessage>(`${this.url}/unsubscribe/${themeId}`)
     }
 

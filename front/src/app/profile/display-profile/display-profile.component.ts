@@ -75,7 +75,6 @@ export class DisplayProfileComponent implements OnInit{
 
     ngOnInit(): void {
         this.currentUserField = this.route.snapshot.data['response'];
-        console.log(this.currentUserField)
     }
 
     togglePasswordVisibility(): void {
@@ -91,10 +90,9 @@ export class DisplayProfileComponent implements OnInit{
     }
 
 
-    unSubscribe(themeId: number){
+    unSubscribe(themeId: number): void{
         this.userService.unSubscribe(themeId).subscribe({
             next: (data)=>{
-                console.log(data);
                 this.userService.getCurrentUser().subscribe({
                     next: (data)=>{
                         this.currentUserField = data;
@@ -110,7 +108,7 @@ export class DisplayProfileComponent implements OnInit{
         })
     }
 
-    onFileSelect(event: Event){
+    onFileSelect(event: Event): void{
         const input = event.target as HTMLInputElement
         if (input.files!.length > 0) {
           this.imageUrlField = input.files![0];
@@ -121,7 +119,7 @@ export class DisplayProfileComponent implements OnInit{
         }
     }
       
-    editProfile(){
+    editProfile(): void{
         this.userService.edit(
             this.editFormGroupField.get('email')?.value,
             this.editFormGroupField.get('userName')?.value,
@@ -137,7 +135,7 @@ export class DisplayProfileComponent implements OnInit{
             });
     }
 
-    logout():void {
+    logout(): void {
         this.tokenService.clearToken();
         this.router.navigate(['/']).then(() => {
           setTimeout(() => {

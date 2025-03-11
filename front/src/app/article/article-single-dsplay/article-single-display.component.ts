@@ -59,16 +59,14 @@ export class ArticleSingleDisplayComponent implements OnInit{
         this.loadSingleProduct()
     }
 
-    private loadSingleProduct(){
+    private loadSingleProduct(): void{
         let isnum = /^\d+$/.test(this.articleId);
         if(isnum) {
             this.articleService.getOneArticle(this.articleId).subscribe({
                 next: (res) => {
-                    console.log(res)
                     this.singleArticleField = res;
                 },
                 error: (err) => {
-                    console.log(err);
                     if(err.status === 404){
                         this.toastService.showToast(err.error.message, errorType(err));
                         this.router.navigate(['article/home/**'])
@@ -82,10 +80,9 @@ export class ArticleSingleDisplayComponent implements OnInit{
             this.router.navigate(['article/home/**'])
         }
     }
-    loadComments(){
+    loadComments(): void{
         this.commentService.getAllArticleComments(this.articleId, this.page, this.size).subscribe({
             next: (data) => {
-                console.log('comments',data)
                 this.commentField = data.content;
                 this.totalArticleFied = data.totalElements;
             },
@@ -109,13 +106,13 @@ export class ArticleSingleDisplayComponent implements OnInit{
         }
     }
 
-    onSubmitComment(){
+    onSubmitComment(): void{
         this.commentService.create(this.commentInput, this.articleId).subscribe((data)=>{
             this.commentService.getAllArticleComments(this.articleId, this.page, this.size).subscribe({
                 next: (data) => {
-                    console.log('comments',data)
                     this.commentField = data.content;
                     this.commentInputField = '';
+                    this.toastService.showToast('comment created', 'success')
                 },
                 error: (err) => {
                     this.toastService.showToast(err.error.message, errorType(err));

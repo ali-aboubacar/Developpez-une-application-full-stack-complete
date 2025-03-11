@@ -47,17 +47,14 @@ import { TokenService } from "src/app/_services/token.service";
       this.showPasswordField = !this.showPasswordField;
     }
 
-    onSubmit(){
-      console.log(this.loginFormGoup.value)
+    onSubmit(): void{
       this.authService.login(this.loginFormGoup.value).subscribe({
         next: (res) => {
-          console.log(res)
           this.tokenService.saveToken(res.token);
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/article';
           this.router.navigateByUrl(returnUrl)
         },
         error: (err) => {
-          console.log(err);
           this.toastService.showToast(err.error.message, errorType(err));
         }
       })

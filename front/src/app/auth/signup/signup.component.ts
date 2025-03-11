@@ -45,27 +45,14 @@ import { TokenService } from "src/app/_services/token.service";
       this.showPasswordField = !this.showPasswordField;
     }
 
-    onSubmit(){
-      console.log('register formGroup', this.signUpFormGroup.value)
+    onSubmit(): void{
       this.authService.signUp(this.signUpFormGroup.value).subscribe({
         next: (res) => {
-          console.log(res)
           this.tokenService.saveToken(res.token);
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/article';
           this.router.navigateByUrl(returnUrl)
-          // this.tokenService.saveRole(res.role);
-          // this.tokenService.saveUserId(res.userId);
-          // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          // this.router.navigateByUrl(returnUrl).then(() => {
-          //   console.log(res)
-          //   // this.toastService.showToast(res.message,'success');
-          //   setTimeout(() => {
-          //     window.location.reload();
-          //   }, 3000)
-          // });
         },
         error: (err) => {
-          console.log(err)
           this.toastService.showToast(err.error.message, errorType(err))
         }
       })

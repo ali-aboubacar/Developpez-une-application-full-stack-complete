@@ -11,7 +11,7 @@ export class ThemeService{
 
     constructor(private http: HttpClient){}
 
-    getAllTheme():Observable<ITheme[]>{
+    getAllTheme(): Observable<ITheme[]>{
     return this.http.get<ITheme[]>(`${this.url}/themes`)
     }
 }

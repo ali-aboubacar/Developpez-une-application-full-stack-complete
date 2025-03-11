@@ -13,11 +13,11 @@ export class HeaderComponent implements OnInit{
     private toggleDivField: boolean = false;
     private profilField!: string;
     constructor(private editPicService: EditPicService,
-        private userService: UserService,private toastService: ToastService){}
+        private userService: UserService,
+        private toastService: ToastService){}
     ngOnInit(): void {
         this.userService.getCurrentUser().subscribe({
             next: (data)=>{
-                console.log(data)
                 this.profilField = data.profil
             },
             error: (err) => {
@@ -33,10 +33,10 @@ export class HeaderComponent implements OnInit{
         return this.profilField;
     }
 
-    public toggleEditPic(){
+    public toggleEditPic(): void{
         this.editPicService.toggleUpdatePic = !this.editPicService.toggleUpdatePic
     }
-    public toggleMobileNav(){
+    public toggleMobileNav(): void{
         this.toggleDivField = !this.toggleDivField
 
         if(this.toggleDivField){

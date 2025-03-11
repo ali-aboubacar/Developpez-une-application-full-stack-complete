@@ -2,7 +2,6 @@ package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dtos.UserDto;
 import com.openclassrooms.mddapi.jwtUtils.JwtUtils;
-import com.openclassrooms.mddapi.model.ETheme;
 import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.service.UserService;
 import org.slf4j.Logger;
@@ -23,35 +22,21 @@ public class UserController {
 
     @PostMapping("/subscribe/{themeId}")
     public ResponseEntity<MessageResponse> subscribeToTheme(@PathVariable("themeId") long themeId){
-        try{
-            userService.subscribeToTheme(themeId);
-            return new ResponseEntity<>(new MessageResponse("Subscribed Successfully !"),HttpStatus.OK);
-        } catch (RuntimeException e){
-            logger.error("Error subscribing to theme", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
+        userService.subscribeToTheme(themeId);
+        return new ResponseEntity<>(new MessageResponse("Subscribed Successfully !"),HttpStatus.OK);
     }
 
     @DeleteMapping("/unsubscribe/{themeId}")
     public ResponseEntity<MessageResponse> unSubscribeToTheme(@PathVariable("themeId") long themeId){
-        try{
-            userService.unSubscribeToTheme(themeId);
-            return new ResponseEntity<>(new MessageResponse("Unsubscribed Successfully !"),HttpStatus.OK);
-        } catch (RuntimeException e){
-            logger.error("Error Unsubscribing to theme", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
+        userService.unSubscribeToTheme(themeId);
+        return new ResponseEntity<>(new MessageResponse("Unsubscribed Successfully !"),HttpStatus.OK);
+
     }
 
     @GetMapping("/currentuser")
     public ResponseEntity<UserDto> getCurrentUser(){
-        try{
             UserDto currentUser = userService.getCurrentUser();
             return new ResponseEntity<>(currentUser,HttpStatus.OK);
-        }catch (RuntimeException e){
-            logger.error("Error getting current user", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
     @PostMapping("/edit")
@@ -60,12 +45,7 @@ public class UserController {
                                                     @RequestParam(value = "profil", required = false) MultipartFile profil,
                                                     @RequestParam(value = "oldPassword" ,required = false) String oldPassword,
                                                     @RequestParam(value = "newPassword" ,required = false) String newPassword){
-        try {
             userService.editUser(email, userName, profil, oldPassword, newPassword);
             return new ResponseEntity<MessageResponse>(new MessageResponse("Utilisateur modifier"), HttpStatus.OK);
-        } catch (RuntimeException e){
-            logger.error("Error editing user", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 }

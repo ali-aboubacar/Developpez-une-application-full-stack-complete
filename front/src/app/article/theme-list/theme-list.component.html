@@ -3,8 +3,8 @@
         <h2>{{theme.name | titlecase}}</h2>
         <p>{{theme.description}}</p>
         <div class="subscribe-wrap">
-            <button  mat-raised-button class="custom-button" (click)="subscribe(theme.id)" *ngIf="!findSubscribed(theme.id)">S’abonner</button>
-            <button  mat-raised-button class="custom-button" (click)="unSubscribe(theme.id)" *ngIf="findSubscribed(theme.id)">Se désabonner</button>
+            <button  mat-raised-button class="custom-button" (click)="subscribe(9)" *ngIf="!findSubscribed(theme.id)">S’abonner</button>
+            <button  mat-raised-button class="custom-button" (click)="unSubscribe(9)" *ngIf="findSubscribed(theme.id)">Se désabonner</button>
         </div>
     </div>
 </div>

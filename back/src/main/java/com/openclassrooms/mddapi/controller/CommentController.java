@@ -27,22 +27,12 @@ public class CommentController {
 
     @GetMapping("/comments/{id}")
     public ResponseEntity<Page<CommentDto>> getAllCommentByArticle(@PathVariable long id, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
-        try {
             Page<CommentDto> comments =  commentService.getAllCommentForArticle(id, page, size);
             return new ResponseEntity<>(comments, HttpStatus.OK);
-        } catch (RuntimeException e){
-            logger.error("Error Getting all comments ", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
     @PostMapping("/comments")
     public ResponseEntity<MessageResponse> createComment(@RequestBody CommentRequest comment){
-        try {
             commentService.createComment(comment);
             return new ResponseEntity<MessageResponse>(new MessageResponse("Comment send with success"), HttpStatus.CREATED);
-        } catch (RuntimeException e){
-            logger.error("Error creating a comment", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 }

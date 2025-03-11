@@ -57,7 +57,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -74,15 +73,10 @@ public class AuthController {
                     userDetails.getUsername(),
                     userDetails.getEmail(),
                     roles));
-        } catch (RuntimeException e){
-            logger.error("Error login", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
     @PostMapping("/signup")
     public ResponseEntity<SignUpResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        try {
             if (userService.findByEmail(signUpRequest.getEmail())) {
                 return ResponseEntity
                         .badRequest()
@@ -124,9 +118,5 @@ public class AuthController {
                     userDetails.getUsername(),
                     userDetails.getEmail(),
                     userRoles));
-        } catch (RuntimeException e){
-            logger.error("Error signup", e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 }

@@ -8,24 +8,24 @@ import { RoleEnum } from "../_enums/roles.enum";
     constructor() { 
     }
     
-    saveToken(token: string) {
+    saveToken(token: string): void{
       localStorage.setItem('token',token);
     }
   
-    saveRole(role: RoleEnum){
+    saveRole(role: RoleEnum): void{
       localStorage.setItem('userRole',role)
     }
   
-    saveUserId(userId: string){
+    saveUserId(userId: string): void{
       localStorage.setItem('userId',userId)
     }
   
-    isLogged():boolean {
+    isLogged(): boolean {
       const isLoggedIn = localStorage.getItem('isLoggedIn')
       return !! isLoggedIn
     }
   
-    clearToken():void {
+    clearToken(): void {
       localStorage.removeItem('token');
       localStorage.removeItem('userRole');
       localStorage.removeItem('userId');

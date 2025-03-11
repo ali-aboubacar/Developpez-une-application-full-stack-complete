@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dtos.ThemeDto;
+import com.openclassrooms.mddapi.exception.ResourceNotFoundException;
 import com.openclassrooms.mddapi.mapper.ThemeMapper;
 import com.openclassrooms.mddapi.model.ETheme;
 import com.openclassrooms.mddapi.model.Theme;
@@ -27,31 +28,31 @@ public class ThemeService {
 
         if (strThemes == null) {
             Theme articleTheme = themeRepository.findByName(ETheme.THEME_ONE)
-                    .orElseThrow(() -> new RuntimeException("Error: Theme is not found."));
+                    .orElseThrow(() -> new ResourceNotFoundException("Error: Theme is not found."));
             themes = articleTheme;
         } else {
                 switch (strThemes) {
                     case "themeThree":
                         Theme themeThree = themeRepository.findByName(ETheme.THEME_THREE)
-                                .orElseThrow(() -> new RuntimeException("Error: Theme is not found."));
+                                .orElseThrow(() -> new ResourceNotFoundException("Error: Theme is not found."));
                         themes = themeThree;
 
                         break;
                     case "themeTwo":
                         Theme themeTwo = themeRepository.findByName(ETheme.THEME_TWO)
-                                .orElseThrow(() -> new RuntimeException("Error: Theme is not found."));
+                                .orElseThrow(() -> new ResourceNotFoundException("Error: Theme is not found."));
                         themes = themeTwo;
 
                         break;
                     case "themeFour":
                         Theme themeFour = themeRepository.findByName(ETheme.THEME_FOUR)
-                                .orElseThrow(() -> new RuntimeException("Error: Theme is not found."));
+                                .orElseThrow(() -> new ResourceNotFoundException("Error: Theme is not found."));
                         themes = themeFour;
 
                         break;
                     default:
                         Theme themeOne = themeRepository.findByName(ETheme.THEME_ONE)
-                                .orElseThrow(() -> new RuntimeException("Error: Theme is not found."));
+                                .orElseThrow(() -> new ResourceNotFoundException("Error: Theme is not found."));
                         themes = themeOne;
                 }
         }
