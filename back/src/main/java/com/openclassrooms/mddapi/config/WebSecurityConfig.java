@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.jwtUtils.AuthEntryPointJwt;
 import com.openclassrooms.mddapi.jwtUtils.AuthTokenFilter;
 import com.openclassrooms.mddapi.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,8 +25,13 @@ import java.util.List;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
+    @Value("${openclassrooms.app.host}")
+    private String host;
+
+    @Value("${openclassrooms.app.ipHost}")
+    private String ipHost;
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
@@ -58,7 +64,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new CorsConfiguration();
-                    corsConfig.setAllowedOrigins(List.of("http://localhost:4200", "127.0.0.1:4200"));
+                    corsConfig.setAllowedOrigins(List.of(host, ipHost));
                     corsConfig.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
                     corsConfig.setAllowedHeaders(List.of("*"));
                     corsConfig.setAllowCredentials(true);

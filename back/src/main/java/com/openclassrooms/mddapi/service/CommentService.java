@@ -24,16 +24,16 @@ import java.util.stream.Collectors;
 @Service
 public class CommentService {
     @Autowired
-    CommentRepository commentRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
-    ArticleRepository articleRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    CommentMapper commentMapper;
+    private CommentMapper commentMapper;
     public Comment createComment(CommentRequest comment ){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

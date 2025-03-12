@@ -25,10 +25,10 @@ public class ArticleController {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
 
     @Autowired
-    ThemeService themeService;
+    private ThemeService themeService;
     @PostMapping("/article")
     public ResponseEntity<MessageResponse> createOneArticle(@RequestParam("title") String title, @RequestParam("theme") String theme, @RequestParam("description") String description){
         Article newArticle = new Article();

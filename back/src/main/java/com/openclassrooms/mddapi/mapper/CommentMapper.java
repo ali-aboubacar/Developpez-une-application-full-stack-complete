@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommentMapper {
     @Autowired
-    UserService userService;
+    private UserService userService;
     public CommentDto toCommentDto(Comment comment){
         if (comment == null){
             return null;

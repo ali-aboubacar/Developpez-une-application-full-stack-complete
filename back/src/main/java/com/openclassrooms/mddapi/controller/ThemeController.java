@@ -20,7 +20,7 @@ public class ThemeController {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Autowired
-    ThemeService themeService;
+    private ThemeService themeService;
 
     @GetMapping("/themes")
     public ResponseEntity<List<ThemeDto>> getAllThemes(){

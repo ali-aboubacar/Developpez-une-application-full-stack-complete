@@ -9,17 +9,14 @@ import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class ArticleMapper {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    CommentMapper commentMapper;
+    private CommentMapper commentMapper;
 
     public ArticleDto toArticleDto(Article article){
         if (article == null){

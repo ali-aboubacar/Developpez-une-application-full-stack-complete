@@ -26,14 +26,14 @@ import java.util.Optional;
 public class UserService {
     private final Path root = Paths.get("uploads");
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    ThemeRepository themeRepository;
+    private ThemeRepository themeRepository;
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     /**
      * Verifie l'existance du nom dans le system.
      * @param name le nom a verifier.

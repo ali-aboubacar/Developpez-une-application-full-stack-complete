@@ -18,7 +18,7 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("/subscribe/{themeId}")
     public ResponseEntity<MessageResponse> subscribeToTheme(@PathVariable("themeId") long themeId){

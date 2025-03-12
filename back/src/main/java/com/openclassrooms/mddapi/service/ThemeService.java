@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 @Service
 public class ThemeService {
     @Autowired
-    ThemeRepository themeRepository;
+    private ThemeRepository themeRepository;
 
     @Autowired
-    ThemeMapper themeMapper;
+    private ThemeMapper themeMapper;
 
     public Theme giveArticleTheme(String strThemes){
         Theme themes = new Theme();

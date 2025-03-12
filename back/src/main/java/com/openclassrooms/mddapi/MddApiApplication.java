@@ -19,6 +19,8 @@ public class MddApiApplication {
 		System.setProperty("MYSQLDB_PASSWORD", dotenv.get("MYSQLDB_PASSWORD"));
 		System.setProperty("JWT_SECRET", dotenv.get("JWT_SECRET"));
 		System.setProperty("JWT_EXPIRATION", dotenv.get("JWT_EXPIRATION"));
+		System.setProperty("HOST", dotenv.get("HOST"));
+		System.setProperty("IP_HOST", dotenv.get("IP_HOST"));
 		SpringApplication.run(MddApiApplication.class, args);
 		System.out.println("hello word");
 		try {

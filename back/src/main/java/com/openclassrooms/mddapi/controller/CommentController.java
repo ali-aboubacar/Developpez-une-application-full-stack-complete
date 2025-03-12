@@ -23,7 +23,7 @@ public class CommentController {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @GetMapping("/comments/{id}")
     public ResponseEntity<Page<CommentDto>> getAllCommentByArticle(@PathVariable long id, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){

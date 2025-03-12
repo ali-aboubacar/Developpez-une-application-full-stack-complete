@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleService {
     @Autowired
-    ArticleRepository articleRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
-    ArticleMapper articleMapper;
+    private ArticleMapper articleMapper;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     /**
      * Recuperation de tous les articles.
      * @return

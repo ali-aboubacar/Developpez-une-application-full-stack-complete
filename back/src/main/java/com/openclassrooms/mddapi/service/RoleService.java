@@ -12,7 +12,7 @@ import java.util.Set;
 @Service
 public class RoleService {
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     public Set<Role> giveUserRoles(Set<String> strRoles){
         Set<Role> roles = new HashSet<>();
 

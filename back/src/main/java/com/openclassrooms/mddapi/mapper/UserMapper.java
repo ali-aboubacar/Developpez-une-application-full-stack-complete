@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
     @Autowired
-    ThemeMapper themeMapper;
+    private ThemeMapper themeMapper;
     public UserDto toUserDto(User user){
         if (user == null){
             return null;
